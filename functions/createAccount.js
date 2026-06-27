@@ -44,11 +44,25 @@ exports.handler = async (event) => {
 
     // Vérifications minimales
     if (
-      !nom ||
-      !prenom ||
-      !email ||
-      !telephone
-    ) {
+  !nom ||
+  !prenom ||
+  !email ||
+  !telephone ||
+  !dateNaissance ||
+  !direction ||
+  !service ||
+  !poste ||
+  !grade
+)
+{
+  return {
+    statusCode: 400,
+    body: JSON.stringify({
+      erreur:
+        "Tous les champs sont obligatoires sauf le matricule PAK."
+    })
+  };
+}
       return {
         statusCode: 400,
         body: JSON.stringify({
