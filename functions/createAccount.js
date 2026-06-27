@@ -12,11 +12,25 @@ exports.handler = async (event) => {
   const body =
     JSON.parse(event.body);
 
-  const numero =
-    Date.now().toString().slice(-6);
+  const {
+    nom,
+    prenom,
+    email,
+    telephone,
+    direction,
+    service,
+    poste,
+    dateNaissance
+  } = body;
+
+  const { data: numero } =
+    await supabase.rpc(
+      'next_pak_number'
+    );
 
   const identifiant =
-    `PAK-2026-${numero}`;
+    `PAK-2026-${String(numero)
+      .padStart(6, '0')}`;
 
   const motDePasse =
     `Pak@2026-${
