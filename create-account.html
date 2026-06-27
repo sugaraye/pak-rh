@@ -2,8 +2,39 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Créer mon compte - PAK RH</title>
+
 <link rel="stylesheet" href="assets/css/style.css">
+
+<style>
+.card{
+    max-width:900px;
+    margin:40px auto;
+    background:white;
+    padding:40px;
+    border-radius:20px;
+}
+
+input{
+    width:100%;
+    padding:15px;
+    margin-bottom:20px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    box-sizing:border-box;
+}
+
+button{
+    background:#003B7A;
+    color:white;
+    border:none;
+    padding:15px 30px;
+    border-radius:10px;
+    cursor:pointer;
+}
+</style>
+
 </head>
 
 <body>
@@ -11,6 +42,10 @@
 <div class="card">
 
 <h1>Créer mon compte</h1>
+
+<p>
+Veuillez renseigner vos informations pour créer votre compte RH.
+</p>
 
 <form id="createForm">
 
@@ -34,7 +69,7 @@ required>
 <input
 type="email"
 id="email"
-placeholder="Email"
+placeholder="Adresse email"
 required>
 
 <input
@@ -57,6 +92,26 @@ placeholder="Service">
 type="text"
 id="poste"
 placeholder="Poste">
+
+<input
+type="text"
+id="grade"
+placeholder="Grade (facultatif)">
+
+<input
+type="text"
+id="matricule"
+placeholder="Matricule PAK (facultatif)">
+
+<label>
+<input
+type="checkbox"
+required>
+
+Je certifie être employé du Port Autonome de Kribi.
+</label>
+
+<br><br>
 
 <button type="submit">
 Créer mon compte
