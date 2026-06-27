@@ -8,12 +8,35 @@
 <link rel="stylesheet" href="assets/css/style.css">
 
 <style>
+body{
+    background:#f5f7fa;
+    font-family:Arial, sans-serif;
+}
+
 .card{
     max-width:900px;
     margin:40px auto;
     background:white;
     padding:40px;
     border-radius:20px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+
+h1{
+    color:#003B7A;
+    text-align:center;
+}
+
+p{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+    color:#333;
 }
 
 input{
@@ -23,6 +46,7 @@ input{
     border:1px solid #ddd;
     border-radius:10px;
     box-sizing:border-box;
+    font-size:16px;
 }
 
 button{
@@ -32,6 +56,27 @@ button{
     padding:15px 30px;
     border-radius:10px;
     cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#002855;
+}
+
+.certification{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:25px;
+}
+
+.certification input{
+    width:auto;
+    margin:0;
+}
+
+#resultat{
+    margin-top:25px;
 }
 </style>
 
@@ -49,69 +94,84 @@ Veuillez renseigner vos informations pour créer votre compte RH.
 
 <form id="createForm">
 
+<label for="nom">Nom *</label>
 <input
 type="text"
 id="nom"
 placeholder="Nom"
 required>
 
+<label for="prenom">Prénom(s) *</label>
 <input
 type="text"
 id="prenom"
-placeholder="Prénom"
+placeholder="Prénom(s)"
 required>
 
+<label for="dateNaissance">Date de naissance *</label>
 <input
 type="date"
 id="dateNaissance"
 required>
 
+<label for="email">Adresse email *</label>
 <input
 type="email"
 id="email"
 placeholder="Adresse email"
 required>
 
+<label for="telephone">Téléphone *</label>
 <input
-type="text"
+type="tel"
 id="telephone"
-placeholder="Téléphone"
+placeholder="+237 6XXXXXXXX"
 required>
 
+<label for="direction">Direction *</label>
 <input
 type="text"
 id="direction"
-placeholder="Direction">
+placeholder="Ex : DRH"
+required>
 
+<label for="service">Service *</label>
 <input
 type="text"
 id="service"
-placeholder="Service">
+placeholder="Ex : Formation"
+required>
 
+<label for="poste">Poste occupé *</label>
 <input
 type="text"
 id="poste"
-placeholder="Poste">
+placeholder="Ex : Secrétaire"
+required>
 
+<label for="grade">Grade *</label>
 <input
 type="text"
 id="grade"
-placeholder="Grade (facultatif)">
+placeholder="Ex : Cadre d'appui"
+required>
 
+<label for="matricule">Matricule PAK (facultatif)</label>
 <input
 type="text"
 id="matricule"
-placeholder="Matricule PAK (facultatif)">
+placeholder="Matricule PAK">
 
-<label>
-<input
-type="checkbox"
-required>
+<div class="certification">
+    <input
+    type="checkbox"
+    id="certification"
+    required>
 
-Je certifie être employé du Port Autonome de Kribi.
-</label>
-
-<br><br>
+    <label for="certification">
+        Je certifie être employé(e) du Port Autonome de Kribi.
+    </label>
+</div>
 
 <button type="submit">
 Créer mon compte
