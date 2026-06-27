@@ -2,6 +2,7 @@ const { createClient } =
   require("@supabase/supabase-js");
 
 exports.handler = async (event) => {
+
   try {
 
     // Vérification des variables d'environnement
@@ -13,7 +14,7 @@ exports.handler = async (event) => {
         statusCode: 500,
         body: JSON.stringify({
           erreur:
-            "Variables d'environnement Supabase manquantes."
+            "Variables Supabase manquantes."
         })
       };
     }
@@ -25,7 +26,7 @@ exports.handler = async (event) => {
         process.env.SUPABASE_SERVICE_KEY
       );
 
-    // Lecture des données envoyées
+    // Lecture du body
     const body =
       JSON.parse(event.body || "{}");
 
@@ -42,37 +43,28 @@ exports.handler = async (event) => {
       dateNaissance
     } = body;
 
-    // Vérifications minimales
+    // Vérification des champs obligatoires
     if (
-  !nom ||
-  !prenom ||
-  !email ||
-  !telephone ||
-  !dateNaissance ||
-  !direction ||
-  !service ||
-  !poste ||
-  !grade
-)
-{
-  return {
-    statusCode: 400,
-    body: JSON.stringify({
-      erreur:
-        "Tous les champs sont obligatoires sauf le matricule PAK."
-    })
-  };
-}
+      !nom ||
+      !prenom ||
+      !email ||
+      !telephone ||
+      !dateNaissance ||
+      !direction ||
+      !service ||
+      !poste ||
+      !grade
+    ) {
       return {
         statusCode: 400,
         body: JSON.stringify({
           erreur:
-            "Informations obligatoires manquantes."
+            "Tous les champs sont obligatoires sauf le matricule PAK."
         })
       };
     }
 
-    // Récupération du prochain numéro
+    // Génération du numéro
     const rpc =
       await supabase.rpc(
         "next_pak_number"
@@ -83,8 +75,6 @@ exports.handler = async (event) => {
         statusCode: 500,
         body: JSON.stringify({
           erreur:
-            "Erreur RPC.",
-          details:
             rpc.error.message
         })
       };
@@ -93,25 +83,10 @@ exports.handler = async (event) => {
     const numero =
       rpc.data;
 
-    if (
-      numero === null ||
-      numero === undefined
-    ) {
-      return {
-        statusCode: 500,
-        body: JSON.stringify({
-          erreur:
-            "next_pak_number() a retourné NULL."
-        })
-      };
-    }
-
-    // Génération de l'identifiant
     const identifiant =
       `PAK-2026-${String(numero)
         .padStart(6, "0")}`;
 
-    // Génération du mot de passe
     const motDePasse =
       `Pak@2026-${
         Math.floor(
@@ -120,7 +95,7 @@ exports.handler = async (event) => {
         )
       }`;
 
-    // Enregistrement de l'employé
+    // Insertion dans la table employes
     const insertion =
       await supabase
         .from("employes")
@@ -143,24 +118,18 @@ exports.handler = async (event) => {
             dateNaissance,
           statut:
             "En cours"
-        })
-        .select();
+        });
 
-    if (
-      insertion.error
-    ) {
+    if (insertion.error) {
       return {
         statusCode: 500,
         body: JSON.stringify({
           erreur:
-            "Erreur d'insertion.",
-          details:
             insertion.error.message
         })
       };
     }
 
-    // Réponse finale
     return {
       statusCode: 200,
       body: JSON.stringify({
@@ -176,11 +145,10 @@ exports.handler = async (event) => {
       statusCode: 500,
       body: JSON.stringify({
         erreur:
-          "Erreur serveur.",
-        details:
           e.message
       })
     };
 
   }
+
 };
