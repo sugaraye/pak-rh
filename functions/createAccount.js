@@ -1,62 +1,172 @@
 const { createClient } =
-require('@supabase/supabase-js');
+  require("@supabase/supabase-js");
 
 exports.handler = async (event) => {
+  try {
 
-  const supabase =
-    createClient(
-      process.env.SUPABASE_URL,
-      process.env.SUPABASE_SERVICE_KEY
-    );
+    // Vérification des variables d'environnement
+    if (
+      !process.env.SUPABASE_URL ||
+      !process.env.SUPABASE_SERVICE_KEY
+    ) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({
+          erreur:
+            "Variables d'environnement Supabase manquantes."
+        })
+      };
+    }
 
-  const body =
-    JSON.parse(event.body);
+    // Création du client Supabase
+    const supabase =
+      createClient(
+        process.env.SUPABASE_URL,
+        process.env.SUPABASE_SERVICE_KEY
+      );
 
-  const {
-    nom,
-    prenom,
-    email,
-    telephone,
-    direction,
-    service,
-    poste,
-    dateNaissance
-  } = body;
+    // Lecture des données envoyées
+    const body =
+      JSON.parse(event.body || "{}");
 
-  const {
-  data: numero,
-  error
-} = await supabase.rpc('next_pak_number');
+    const {
+      nom,
+      prenom,
+      email,
+      telephone,
+      direction,
+      service,
+      poste,
+      grade,
+      matricule,
+      dateNaissance
+    } = body;
 
-console.log("numero =", numero);
-console.log("error =", error);
+    // Vérifications minimales
+    if (
+      !nom ||
+      !prenom ||
+      !email ||
+      !telephone
+    ) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({
+          erreur:
+            "Informations obligatoires manquantes."
+        })
+      };
+    }
 
-if (error) {
-  return {
-    statusCode: 500,
-    body: JSON.stringify({
-      erreur: error.message
-    })
-  };
-}
+    // Récupération du prochain numéro
+    const rpc =
+      await supabase.rpc(
+        "next_pak_number"
+      );
 
-  const identifiant =
-    `PAK-2026-${String(numero)
-      .padStart(6, '0')}`;
+    if (rpc.error) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({
+          erreur:
+            "Erreur RPC.",
+          details:
+            rpc.error.message
+        })
+      };
+    }
 
-  const motDePasse =
-    `Pak@2026-${
-      Math.floor(
-        1000 +
-        Math.random() * 9000
-      )
-    }`;
+    const numero =
+      rpc.data;
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      identifiant,
-      motDePasse
-    })
-  };
+    if (
+      numero === null ||
+      numero === undefined
+    ) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({
+          erreur:
+            "next_pak_number() a retourné NULL."
+        })
+      };
+    }
+
+    // Génération de l'identifiant
+    const identifiant =
+      `PAK-2026-${String(numero)
+        .padStart(6, "0")}`;
+
+    // Génération du mot de passe
+    const motDePasse =
+      `Pak@2026-${
+        Math.floor(
+          1000 +
+          Math.random() * 9000
+        )
+      }`;
+
+    // Enregistrement de l'employé
+    const insertion =
+      await supabase
+        .from("employes")
+        .insert({
+          numero_dossier:
+            identifiant,
+          identifiant,
+          mot_de_passe:
+            motDePasse,
+          nom,
+          prenom,
+          email,
+          telephone,
+          direction,
+          service,
+          poste,
+          grade,
+          matricule,
+          date_naissance:
+            dateNaissance,
+          statut:
+            "En cours"
+        })
+        .select();
+
+    if (
+      insertion.error
+    ) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({
+          erreur:
+            "Erreur d'insertion.",
+          details:
+            insertion.error.message
+        })
+      };
+    }
+
+    // Réponse finale
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        success: true,
+        identifiant,
+        motDePasse
+      })
+    };
+
+  } catch (e) {
+
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        erreur:
+          "Erreur serveur.",
+        details:
+          e.message
+      })
+    };
+
+  }
 };
