@@ -23,10 +23,22 @@ exports.handler = async (event) => {
     dateNaissance
   } = body;
 
-  const { data: numero } =
-    await supabase.rpc(
-      'next_pak_number'
-    );
+  const {
+  data: numero,
+  error
+} = await supabase.rpc('next_pak_number');
+
+console.log("numero =", numero);
+console.log("error =", error);
+
+if (error) {
+  return {
+    statusCode: 500,
+    body: JSON.stringify({
+      erreur: error.message
+    })
+  };
+}
 
   const identifiant =
     `PAK-2026-${String(numero)
