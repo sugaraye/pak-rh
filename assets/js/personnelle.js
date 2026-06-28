@@ -1,10 +1,15 @@
+// Vérification de la connexion
 const employe =
-JSON.parse(localStorage.getItem("employe"));
+JSON.parse(
+localStorage.getItem("employe")
+);
 
 if (!employe) {
-    window.location.href = "login.html";
+    window.location.href =
+    "login.html";
 }
 
+// Pré-remplissage des champs
 document.getElementById("nom").value =
 employe.nom || "";
 
@@ -17,85 +22,250 @@ employe.telephone || "";
 document.getElementById("email").value =
 employe.email || "";
 
+// Affichage de la progression existante
+let progression =
+employe.progression || 0;
+
+if (document.getElementById("barre")) {
+
+    document
+    .getElementById("barre")
+    .style.width =
+    progression + "%";
+
+}
+
+if (document.getElementById("pourcentage")) {
+
+    document
+    .getElementById("pourcentage")
+    .innerHTML =
+    progression + "% complété";
+
+}
+
+// Activation éventuelle du bouton Suivant
+if (
+    progression >= 20 &&
+    document.getElementById("btnSuivant")
+) {
+    document
+    .getElementById("btnSuivant")
+    .classList
+    .remove("disabled");
+}
+
+// Enregistrement du formulaire
 document
 .getElementById("personForm")
-.addEventListener("submit", async (e) => {
+.addEventListener(
+"submit",
+async (e) => {
 
-e.preventDefault();
+    e.preventDefault();
 
-const data = {
-id: employe.id,
+    const data = {
 
-nom:
-document.getElementById("nom").value,
+        id:
+        employe.id,
 
-prenom:
-document.getElementById("prenom").value,
+        nom:
+        document
+        .getElementById("nom")
+        .value
+        .trim(),
 
-sexe:
-document.getElementById("sexe").value,
+        prenom:
+        document
+        .getElementById("prenom")
+        .value
+        .trim(),
 
-date_naissance:
-document.getElementById("date_naissance").value,
+        sexe:
+        document
+        .getElementById("sexe")
+        .value,
 
-lieu_naissance:
-document.getElementById("lieu_naissance").value,
+        date_naissance:
+        document
+        .getElementById("date_naissance")
+        .value,
 
-nationalite:
-document.getElementById("nationalite").value,
+        lieu_naissance:
+        document
+        .getElementById("lieu_naissance")
+        .value
+        .trim(),
 
-telephone:
-document.getElementById("telephone").value,
+        nationalite:
+        document
+        .getElementById("nationalite")
+        .value
+        .trim(),
 
-email:
-document.getElementById("email").value,
+        telephone:
+        document
+        .getElementById("telephone")
+        .value
+        .trim(),
 
-adresse:
-document.getElementById("adresse").value,
+        email:
+        document
+        .getElementById("email")
+        .value
+        .trim(),
 
-ville:
-document.getElementById("ville").value,
+        adresse:
+        document
+        .getElementById("adresse")
+        .value
+        .trim(),
 
-situation_familiale:
-document.getElementById("situation_familiale").value,
+        ville:
+        document
+        .getElementById("ville")
+        .value
+        .trim(),
 
-nombre_enfants:
-document.getElementById("nombre_enfants").value
+        situation_familiale:
+        document
+        .getElementById(
+            "situation_familiale"
+        )
+        .value,
 
-};
+        nombre_enfants:
+        document
+        .getElementById(
+            "nombre_enfants"
+        )
+        .value
 
-const response =
-await fetch(
-"/.netlify/functions/savePersonal",
-{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify(data)
-}
-);
+    };
 
-const result =
-await response.json();
+    try {
 
-if(response.ok){
+        const response =
+        await fetch(
+            "/.netlify/functions/savePersonal",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type":
+                    "application/json"
+                },
+                body:
+                JSON.stringify(data)
+            }
+        );
 
-document.getElementById("message")
-.innerHTML =
-'<p class="success">Informations enregistrées.</p>';
+        const result =
+        await response.json();
 
-employe.progression = 20;
+        if (!response.ok) {
+            throw new Error(
+                result.erreur ||
+                "Erreur d'enregistrement."
+            );
+        }
 
-localStorage.setItem(
-"employe",
-JSON.stringify(employe)
-);
+        // Mise à jour des données locales
+        employe.nom =
+        data.nom;
 
-}else{
+        employe.prenom =
+        data.prenom;
 
-alert(result.erreur);
+        employe.telephone =
+        data.telephone;
 
-}
+        employe.email =
+        data.email;
+
+        // Progression
+        employe.progression =
+        Math.max(
+            employe.progression || 0,
+            20
+        );
+
+        localStorage.setItem(
+            "employe",
+            JSON.stringify(employe)
+        );
+
+        // Mise à jour de la barre
+        if (
+            document.getElementById(
+                "barre"
+            )
+        ) {
+            document
+            .getElementById("barre")
+            .style.width =
+            "20%";
+        }
+
+        if (
+            document.getElementById(
+                "pourcentage"
+            )
+        ) {
+            document
+            .getElementById(
+                "pourcentage"
+            )
+            .innerHTML =
+            "20 % complété";
+        }
+
+        // Activation du bouton suivant
+        if (
+            document.getElementById(
+                "btnSuivant"
+            )
+        ) {
+            document
+            .getElementById(
+                "btnSuivant"
+            )
+            .classList
+            .remove(
+                "disabled"
+            );
+        }
+
+        // Message
+        document
+        .getElementById(
+            "message"
+        )
+        .innerHTML = `
+            <div class="success">
+                ✅ Informations personnelles enregistrées avec succès.<br><br>
+                Vous pouvez maintenant passer à l'étape suivante.
+            </div>
+        `;
+
+    }
+    catch (e) {
+
+        document
+        .getElementById(
+            "message"
+        )
+        .innerHTML = `
+            <div style="
+                color:#b91c1c;
+                background:#fef2f2;
+                padding:15px;
+                border-radius:10px;
+                margin-top:20px;
+            ">
+                ${e.message}
+            </div>
+        `;
+
+    }
 
 });
