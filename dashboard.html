@@ -202,11 +202,12 @@ h3{
 
         <h3>👤 Informations personnelles</h3>
 
-        <a
-            href="personnelle.html"
-            class="btn">
-            Compléter
-        </a>
+       <a
+    id="btnPersonnelle"
+    href="personnelle.html"
+    class="btn">
+    Compléter
+</a>
 
     </div>
 
@@ -214,11 +215,12 @@ h3{
 
         <h3>🏢 Informations administratives</h3>
 
-        <a
-            href="administrative.html"
-            class="btn">
-            Compléter
-        </a>
+      <a
+    id="btnAdministrative"
+    href="administrative.html"
+    class="btn">
+    Compléter
+</a>
 
     </div>
 
@@ -227,10 +229,11 @@ h3{
         <h3>💼 Expériences professionnelles</h3>
 
         <a
-            href="experiences.html"
-            class="btn">
-            Compléter
-        </a>
+    id="btnExperiences"
+    href="experiences.html"
+    class="btn">
+    Compléter
+</a>
 
     </div>
 
@@ -238,11 +241,12 @@ h3{
 
         <h3>🎓 Diplômes et certifications</h3>
 
-        <a
-            href="diplomes.html"
-            class="btn">
-            Compléter
-        </a>
+       <a
+    id="btnDiplomes"
+    href="diplomes.html"
+    class="btn">
+    Compléter
+</a>
 
     </div>
 
@@ -250,11 +254,12 @@ h3{
 
         <h3>📄 Documents</h3>
 
-        <a
-            href="documents.html"
-            class="btn">
-            Téléverser
-        </a>
+       <a
+    id="btnDocuments"
+    href="documents.html"
+    class="btn">
+    Téléverser
+</a>
 
     </div>
 
@@ -262,11 +267,12 @@ h3{
 
         <h3>✅ Soumettre mon dossier</h3>
 
-        <a
-            href="soumission.html"
-            class="btn">
-            Soumettre
-        </a>
+       <a
+    id="btnSoumettre"
+    href="soumission.html"
+    class="btn">
+    Soumettre
+</a>
 
     </div>
 
@@ -280,71 +286,81 @@ JSON.parse(
 );
 
 if (!employe) {
-
     window.location.href =
     "login.html";
-
 }
 
-document
-.getElementById("bienvenue")
-.innerHTML =
+document.getElementById(
+    "bienvenue"
+).innerHTML =
 `Mme/M. ${employe.prenom || ""}
 ${employe.nom || ""}`;
 
-document
-.getElementById("identifiant")
-.innerHTML =
+document.getElementById(
+    "identifiant"
+).innerHTML =
 `Identifiant :
 ${employe.identifiant || "-"}`;
 
-document
-.getElementById("dossier")
-.innerHTML =
+document.getElementById(
+    "dossier"
+).innerHTML =
 `Dossier :
 ${employe.numero_dossier ||
 "Non attribué"}`;
 
-document
-.getElementById("direction")
-.innerHTML =
+document.getElementById(
+    "direction"
+).innerHTML =
 `Direction :
 ${employe.direction || "-"}`;
 
-document
-.getElementById("service")
-.innerHTML =
+document.getElementById(
+    "service"
+).innerHTML =
 `Service :
 ${employe.service || "-"}`;
 
-document
-.getElementById("poste")
-.innerHTML =
+document.getElementById(
+    "poste"
+).innerHTML =
 `Poste :
 ${employe.poste || "-"}`;
+
+/*
+----------------------------------
+PROGRESSION
+----------------------------------
+*/
 
 const progression =
 Number(
     employe.progression || 0
 );
 
-document
-.getElementById("barre")
-.style.width =
+document.getElementById(
+    "barre"
+).style.width =
 progression + "%";
 
-document
-.getElementById("barre")
-.setAttribute(
+document.getElementById(
+    "barre"
+).setAttribute(
     "aria-valuenow",
     progression
 );
 
-document
-.getElementById("pourcentage")
-.innerHTML =
+document.getElementById(
+    "pourcentage"
+).innerHTML =
 progression +
 "% complété";
+
+/*
+----------------------------------
+STATUT
+----------------------------------
+*/
 
 let statut =
 employe.statut ||
@@ -354,52 +370,241 @@ let texteStatut =
 "🟠 En cours de remplissage";
 
 if (
-    statut ===
-    "Soumis"
+    statut === "Soumis"
 ){
     texteStatut =
     "🟡 Dossier soumis";
 }
 
 if (
-    statut ===
-    "En vérification"
+    statut === "En vérification"
 ){
     texteStatut =
     "🔵 En cours de vérification";
 }
 
 if (
-    statut ===
-    "Validé RH"
+    statut === "Validé RH"
 ){
     texteStatut =
     "🟢 Dossier validé";
 }
 
-document
-.getElementById("statut")
-.innerHTML =
+document.getElementById(
+    "statut"
+).innerHTML =
 `Statut du dossier :
 ${texteStatut}`;
 
-document
-.getElementById("logoutBtn")
-.addEventListener(
-"click",
-function(){
+/*
+----------------------------------
+BLOCAGE DES ETAPES
+----------------------------------
+*/
 
-    localStorage
-    .removeItem(
-        "employe"
+function bloquer(
+    idBouton,
+    message
+){
+
+    const btn =
+    document.getElementById(
+        idBouton
     );
 
-    window.location.href =
-    "login.html";
+    if(!btn) return;
 
-});
+    btn.href = "#";
 
+    btn.style.opacity =
+    ".5";
+
+    btn.style.cursor =
+    "not-allowed";
+
+    btn.onclick =
+    function(e){
+
+        e.preventDefault();
+
+        alert(message);
+
+    };
+
+}
+
+/*
+0 %
+*/
+
+if (
+    progression < 20
+){
+
+    bloquer(
+        "btnAdministrative",
+        "Veuillez d'abord compléter vos informations personnelles."
+    );
+
+    bloquer(
+        "btnExperiences",
+        "Veuillez d'abord compléter vos informations personnelles."
+    );
+
+    bloquer(
+        "btnDiplomes",
+        "Veuillez d'abord compléter vos informations personnelles."
+    );
+
+    bloquer(
+        "btnDocuments",
+        "Veuillez d'abord compléter vos informations personnelles."
+    );
+
+    bloquer(
+        "btnSoumettre",
+        "Veuillez compléter votre dossier."
+    );
+
+}
+
+/*
+20 %
+*/
+
+if (
+    progression >= 20 &&
+    progression < 40
+){
+
+    bloquer(
+        "btnExperiences",
+        "Veuillez compléter vos informations administratives."
+    );
+
+    bloquer(
+        "btnDiplomes",
+        "Veuillez compléter vos informations administratives."
+    );
+
+    bloquer(
+        "btnDocuments",
+        "Veuillez compléter vos informations administratives."
+    );
+
+    bloquer(
+        "btnSoumettre",
+        "Veuillez compléter votre dossier."
+    );
+
+}
+
+/*
+40 %
+*/
+
+if (
+    progression >= 40 &&
+    progression < 60
+){
+
+    bloquer(
+        "btnDiplomes",
+        "Veuillez compléter vos expériences professionnelles."
+    );
+
+    bloquer(
+        "btnDocuments",
+        "Veuillez compléter vos expériences professionnelles."
+    );
+
+    bloquer(
+        "btnSoumettre",
+        "Veuillez compléter votre dossier."
+    );
+
+}
+
+/*
+60 %
+*/
+
+if (
+    progression >= 60 &&
+    progression < 80
+){
+
+    bloquer(
+        "btnDocuments",
+        "Veuillez compléter vos diplômes et certifications."
+    );
+
+    bloquer(
+        "btnSoumettre",
+        "Veuillez compléter votre dossier."
+    );
+
+}
+
+/*
+80 %
+*/
+
+if (
+    progression >= 80 &&
+    progression < 100
+){
+
+    bloquer(
+        "btnSoumettre",
+        "Veuillez téléverser tous les documents requis."
+    );
+
+}
+
+/*
+100 %
+*/
+
+if (
+    progression === 100
+){
+
+    document.getElementById(
+        "statut"
+    ).innerHTML =
+    "🟢 Dossier complet - prêt pour soumission";
+
+}
+
+/*
+----------------------------------
+DECONNEXION
+----------------------------------
+*/
+
+document
+.getElementById(
+    "logoutBtn"
+)
+.addEventListener(
+    "click",
+    function(){
+
+        localStorage.removeItem(
+            "employe"
+        );
+
+        window.location.href =
+        "login.html";
+
+    }
+);
 </script>
 
 </body>
 </html>
+
+
+
+
