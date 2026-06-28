@@ -2,53 +2,137 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Mon dossier RH</title>
+<title>Mon dossier RH - Port Autonome de Kribi</title>
 
-<link rel="stylesheet"
-href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css">
 
 <style>
 
+body{
+    background:#f5f7fa;
+    font-family:Arial, sans-serif;
+    margin:0;
+    padding:20px;
+}
+
 .card{
-max-width:1100px;
-margin:40px auto;
-background:white;
-padding:40px;
-border-radius:20px;
+    max-width:1100px;
+    margin:40px auto;
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.logout-btn{
+    background:#dc2626;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.logout-btn:hover{
+    background:#b91c1c;
+}
+
+.infos{
+    margin-top:30px;
+    background:#f8f8f8;
+    padding:25px;
+    border-radius:15px;
+}
+
+.infos p{
+    margin:10px 0;
+    font-size:16px;
+}
+
+.statut{
+    margin-top:20px;
+    padding:15px;
+    border-radius:10px;
+    background:#fff7ed;
+    border-left:6px solid #f59e0b;
+    font-weight:bold;
+    color:#92400e;
 }
 
 .bloc{
-background:#f8f8f8;
-padding:25px;
-margin-top:20px;
-border-radius:15px;
+    background:#f8f8f8;
+    padding:25px;
+    margin-top:25px;
+    border-radius:15px;
 }
 
 .btn{
-display:inline-block;
-background:#003B7A;
-color:white;
-padding:15px 25px;
-border-radius:10px;
-text-decoration:none;
-margin-top:15px;
+    display:inline-block;
+    background:#003B7A;
+    color:white;
+    padding:15px 25px;
+    border-radius:10px;
+    text-decoration:none;
+    margin-top:15px;
+}
+
+.btn:hover{
+    background:#002b5c;
 }
 
 .progress{
-height:25px;
-background:#ddd;
-border-radius:50px;
-overflow:hidden;
+    height:30px;
+    background:#ddd;
+    border-radius:50px;
+    overflow:hidden;
+    margin-top:15px;
 }
 
 .progress-bar{
-height:100%;
-width:0%;
-background:#009fe3;
+    height:100%;
+    width:0%;
+    background:#009fe3;
+    transition:width .5s ease;
 }
+
+#pourcentage{
+    margin-top:15px;
+    font-weight:bold;
+    color:#003B7A;
+}
+
+h1{
+    color:#003B7A;
+}
+
+h3{
+    margin-top:0;
+}
+
+@media(max-width:768px){
+
+    .card{
+        padding:20px;
+    }
+
+    .header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+}
+
 </style>
 
 </head>
@@ -57,61 +141,134 @@ background:#009fe3;
 
 <div class="card">
 
-<h1 id="nom"></h1>
+    <div class="header">
 
-<p id="identifiant"></p>
-<p id="dossier"></p>
+        <div>
+            <h1>Port Autonome de Kribi</h1>
+            <p>
+                Plateforme d'Actualisation du Fichier-Carrière
+            </p>
+        </div>
 
-<div class="bloc">
+        <button
+            id="logoutBtn"
+            class="logout-btn">
+            Déconnexion
+        </button>
 
-<h3>Progression du dossier</h3>
+    </div>
 
-<div class="progress">
-<div
-id="barre"
-class="progress-bar">
-</div>
-</div>
+    <div class="infos">
 
-<p id="pourcentage"></p>
+        <h2>Bienvenue</h2>
 
-</div>
+        <p id="bienvenue"></p>
 
-<div class="bloc">
-<h3>Informations personnelles</h3>
-<a
-href="#"
-class="btn">
-Compléter
-</a>
-</div>
+        <p id="identifiant"></p>
 
-<div class="bloc">
-<h3>Expériences professionnelles</h3>
-<a
-href="#"
-class="btn">
-Compléter
-</a>
-</div>
+        <p id="dossier"></p>
 
-<div class="bloc">
-<h3>Diplômes et certifications</h3>
-<a
-href="#"
-class="btn">
-Compléter
-</a>
-</div>
+        <p id="direction"></p>
 
-<div class="bloc">
-<h3>Documents</h3>
-<a
-href="#"
-class="btn">
-Téléverser
-</a>
-</div>
+        <p id="service"></p>
+
+        <p id="poste"></p>
+
+        <div
+            id="statut"
+            class="statut">
+        </div>
+
+    </div>
+
+    <div class="bloc">
+
+        <h3>Progression du dossier</h3>
+
+        <div class="progress">
+
+            <div
+                id="barre"
+                class="progress-bar">
+            </div>
+
+        </div>
+
+        <p id="pourcentage"></p>
+
+    </div>
+
+    <div class="bloc">
+
+        <h3>👤 Informations personnelles</h3>
+
+        <a
+            href="personnelle.html"
+            class="btn">
+            Compléter
+        </a>
+
+    </div>
+
+    <div class="bloc">
+
+        <h3>🏢 Informations administratives</h3>
+
+        <a
+            href="administrative.html"
+            class="btn">
+            Compléter
+        </a>
+
+    </div>
+
+    <div class="bloc">
+
+        <h3>💼 Expériences professionnelles</h3>
+
+        <a
+            href="experiences.html"
+            class="btn">
+            Compléter
+        </a>
+
+    </div>
+
+    <div class="bloc">
+
+        <h3>🎓 Diplômes et certifications</h3>
+
+        <a
+            href="diplomes.html"
+            class="btn">
+            Compléter
+        </a>
+
+    </div>
+
+    <div class="bloc">
+
+        <h3>📄 Documents</h3>
+
+        <a
+            href="documents.html"
+            class="btn">
+            Téléverser
+        </a>
+
+    </div>
+
+    <div class="bloc">
+
+        <h3>✅ Soumettre mon dossier</h3>
+
+        <a
+            href="soumission.html"
+            class="btn">
+            Soumettre
+        </a>
+
+    </div>
 
 </div>
 
@@ -119,30 +276,57 @@ Téléverser
 
 const employe =
 JSON.parse(
-localStorage.getItem("employe")
+    localStorage.getItem("employe")
 );
 
-if(!employe){
+if (!employe) {
 
-window.location.href =
-"login.html";
+    window.location.href =
+    "login.html";
 
 }
 
-document.getElementById("nom")
+document
+.getElementById("bienvenue")
 .innerHTML =
-`${employe.prenom} ${employe.nom}`;
+`Mme/M. ${employe.prenom || ""}
+${employe.nom || ""}`;
 
-document.getElementById("identifiant")
+document
+.getElementById("identifiant")
 .innerHTML =
-`Identifiant : ${employe.identifiant}`;
+`Identifiant :
+${employe.identifiant || "-"}`;
 
-document.getElementById("dossier")
+document
+.getElementById("dossier")
 .innerHTML =
-`Dossier : ${employe.numero_dossier}`;
+`Dossier :
+${employe.numero_dossier ||
+"Non attribué"}`;
+
+document
+.getElementById("direction")
+.innerHTML =
+`Direction :
+${employe.direction || "-"}`;
+
+document
+.getElementById("service")
+.innerHTML =
+`Service :
+${employe.service || "-"}`;
+
+document
+.getElementById("poste")
+.innerHTML =
+`Poste :
+${employe.poste || "-"}`;
 
 const progression =
-employe.progression || 0;
+Number(
+    employe.progression || 0
+);
 
 document
 .getElementById("barre")
@@ -150,9 +334,70 @@ document
 progression + "%";
 
 document
+.getElementById("barre")
+.setAttribute(
+    "aria-valuenow",
+    progression
+);
+
+document
 .getElementById("pourcentage")
 .innerHTML =
-progression + "% complété";
+progression +
+"% complété";
+
+let statut =
+employe.statut ||
+"En cours";
+
+let texteStatut =
+"🟠 En cours de remplissage";
+
+if (
+    statut ===
+    "Soumis"
+){
+    texteStatut =
+    "🟡 Dossier soumis";
+}
+
+if (
+    statut ===
+    "En vérification"
+){
+    texteStatut =
+    "🔵 En cours de vérification";
+}
+
+if (
+    statut ===
+    "Validé RH"
+){
+    texteStatut =
+    "🟢 Dossier validé";
+}
+
+document
+.getElementById("statut")
+.innerHTML =
+`Statut du dossier :
+${texteStatut}`;
+
+document
+.getElementById("logoutBtn")
+.addEventListener(
+"click",
+function(){
+
+    localStorage
+    .removeItem(
+        "employe"
+    );
+
+    window.location.href =
+    "login.html";
+
+});
 
 </script>
 
