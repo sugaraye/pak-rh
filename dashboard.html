@@ -1,13 +1,160 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head><meta charset="UTF-8"><title>Dashboard DRH</title></head>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>Mon dossier RH</title>
+
+<link rel="stylesheet"
+href="assets/css/style.css">
+
+<style>
+
+.card{
+max-width:1100px;
+margin:40px auto;
+background:white;
+padding:40px;
+border-radius:20px;
+}
+
+.bloc{
+background:#f8f8f8;
+padding:25px;
+margin-top:20px;
+border-radius:15px;
+}
+
+.btn{
+display:inline-block;
+background:#003B7A;
+color:white;
+padding:15px 25px;
+border-radius:10px;
+text-decoration:none;
+margin-top:15px;
+}
+
+.progress{
+height:25px;
+background:#ddd;
+border-radius:50px;
+overflow:hidden;
+}
+
+.progress-bar{
+height:100%;
+width:0%;
+background:#009fe3;
+}
+</style>
+
+</head>
+
 <body>
-<h1>Tableau de bord DRH</h1>
-<ul>
-<li>Nombre d'employés</li>
-<li>Dossiers complets</li>
-<li>Dossiers incomplets</li>
-<li>Exports Excel/PDF</li>
-</ul>
+
+<div class="card">
+
+<h1 id="nom"></h1>
+
+<p id="identifiant"></p>
+<p id="dossier"></p>
+
+<div class="bloc">
+
+<h3>Progression du dossier</h3>
+
+<div class="progress">
+<div
+id="barre"
+class="progress-bar">
+</div>
+</div>
+
+<p id="pourcentage"></p>
+
+</div>
+
+<div class="bloc">
+<h3>Informations personnelles</h3>
+<a
+href="#"
+class="btn">
+Compléter
+</a>
+</div>
+
+<div class="bloc">
+<h3>Expériences professionnelles</h3>
+<a
+href="#"
+class="btn">
+Compléter
+</a>
+</div>
+
+<div class="bloc">
+<h3>Diplômes et certifications</h3>
+<a
+href="#"
+class="btn">
+Compléter
+</a>
+</div>
+
+<div class="bloc">
+<h3>Documents</h3>
+<a
+href="#"
+class="btn">
+Téléverser
+</a>
+</div>
+
+</div>
+
+<script>
+
+const employe =
+JSON.parse(
+localStorage.getItem("employe")
+);
+
+if(!employe){
+
+window.location.href =
+"login.html";
+
+}
+
+document.getElementById("nom")
+.innerHTML =
+`${employe.prenom} ${employe.nom}`;
+
+document.getElementById("identifiant")
+.innerHTML =
+`Identifiant : ${employe.identifiant}`;
+
+document.getElementById("dossier")
+.innerHTML =
+`Dossier : ${employe.numero_dossier}`;
+
+const progression =
+employe.progression || 0;
+
+document
+.getElementById("barre")
+.style.width =
+progression + "%";
+
+document
+.getElementById("pourcentage")
+.innerHTML =
+progression + "% complété";
+
+</script>
+
 </body>
 </html>
