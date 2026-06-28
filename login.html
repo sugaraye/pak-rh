@@ -1,12 +1,84 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head><meta charset="UTF-8"><title>Connexion</title></head>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Connexion - PAK RH</title>
+
+<link rel="stylesheet" href="assets/css/style.css">
+
+<style>
+.card{
+  max-width:600px;
+  margin:60px auto;
+  background:white;
+  padding:40px;
+  border-radius:20px;
+}
+
+input{
+  width:100%;
+  padding:15px;
+  margin-bottom:20px;
+  border:1px solid #ddd;
+  border-radius:10px;
+}
+
+button{
+  width:100%;
+  background:#003B7A;
+  color:white;
+  border:none;
+  padding:15px;
+  border-radius:10px;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.erreur{
+  color:red;
+  margin-top:20px;
+}
+</style>
+
+</head>
+
 <body>
-<h2>Connexion Employé</h2>
-<form>
-<label>Matricule</label><br>
-<input type="text" placeholder="Votre matricule"><br><br>
-<button type="button">Continuer</button>
+
+<div class="card">
+
+<h1>Connexion</h1>
+
+<p>
+Connectez-vous avec votre identifiant et votre mot de passe.
+</p>
+
+<form id="loginForm">
+
+<input
+type="text"
+id="identifiant"
+placeholder="Identifiant PAK"
+required>
+
+<input
+type="password"
+id="motdepasse"
+placeholder="Mot de passe"
+required>
+
+<button type="submit">
+Se connecter
+</button>
+
 </form>
+
+<div id="message"></div>
+
+</div>
+
+<script src="assets/js/login.js"></script>
+
 </body>
 </html>
