@@ -1,1 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
 
+<title>
+Informations administratives
+</title>
+
+<link rel="stylesheet"
+href="assets/css/style.css">
+
+<style>
+
+.card{
+max-width:1000px;
+margin:40px auto;
+background:white;
+padding:40px;
+border-radius:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+input{
+width:100%;
+padding:15px;
+border:1px solid #ddd;
+border-radius:10px;
+box-sizing:border-box;
+}
+
+button{
+margin-top:30px;
+background:#003B7A;
+color:white;
+border:none;
+padding:15px 30px;
+border-radius:10px;
+cursor:pointer;
+}
+
+.success{
+margin-top:20px;
+color:green;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>
+Informations administratives
+</h1>
+
+<form id="adminForm">
+
+<div class="grid">
+
+<input
+type="text"
+id="matricule"
+placeholder="Matricule PAK">
+
+<input
+type="text"
+id="direction"
+placeholder="Direction"
+required>
+
+<input
+type="text"
+id="departement"
+placeholder="Département"
+required>
+
+<input
+type="text"
+id="service"
+placeholder="Service"
+required>
+
+<input
+type="text"
+id="poste"
+placeholder="Poste"
+required>
+
+<input
+type="text"
+id="grade"
+placeholder="Grade"
+required>
+
+<input
+type="text"
+id="categorie"
+placeholder="Catégorie"
+required>
+
+<input
+type="text"
+id="echelon"
+placeholder="Échelon"
+required>
+
+<input
+type="date"
+id="date_entree"
+required>
+
+<input
+type="date"
+id="date_prise_service"
+required>
+
+<input
+type="text"
+id="type_contrat"
+placeholder="Type de contrat"
+required>
+
+<input
+type="text"
+id="superieur_hierarchique"
+placeholder="Supérieur hiérarchique"
+required>
+
+</div>
+
+<button type="submit">
+Enregistrer
+</button>
+
+</form>
+
+<div id="message"></div>
+
+</div>
+
+<script src="assets/js/administrative.js"></script>
+
+</body>
+</html>
