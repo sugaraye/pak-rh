@@ -2,6 +2,12 @@ const employe =
 JSON.parse(
 localStorage.getItem("employe")
 );
+
+if (!employe) {
+  window.location.href =
+  "login.html";
+}
+
 if (
   !employe ||
   employe.progression < 80
@@ -13,12 +19,6 @@ if (
   window.location.href =
     "dashboard.html";
 }
-
-if (!employe) {
-  window.location.href =
-  "login.html";
-}
-
 document
 .getElementById("envoyer")
 .addEventListener(
