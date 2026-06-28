@@ -2,6 +2,17 @@ const employe =
 JSON.parse(
 localStorage.getItem("employe")
 );
+if (
+  !employe ||
+  employe.progression < 20
+) {
+  alert(
+    "Veuillez d'abord compléter vos informations personnelles."
+  );
+
+  window.location.href =
+    "dashboard.html";
+}
 
 if(!employe){
 
