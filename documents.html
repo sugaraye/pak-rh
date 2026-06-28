@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>
+Documents RH
+</title>
+
+<link rel="stylesheet"
+href="assets/css/style.css">
+
+<style>
+
+.card{
+max-width:1000px;
+margin:40px auto;
+background:white;
+padding:40px;
+border-radius:20px;
+}
+
+.bloc{
+background:#f8f8f8;
+padding:25px;
+border-radius:15px;
+margin-top:20px;
+}
+
+input,
+select{
+width:100%;
+padding:15px;
+margin-top:15px;
+border:1px solid #ddd;
+border-radius:10px;
+}
+
+button{
+background:#003B7A;
+color:white;
+border:none;
+padding:15px 30px;
+border-radius:10px;
+cursor:pointer;
+margin-top:20px;
+}
+
+.document{
+background:white;
+padding:15px;
+border-radius:10px;
+margin-top:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>
+Documents justificatifs
+</h1>
+
+<div class="bloc">
+
+<select id="type_document">
+
+<option value="">
+Choisir le type de document
+</option>
+
+<option value="cv">
+Curriculum Vitae
+</option>
+
+<option value="diplomes">
+Diplôme
+</option>
+
+<option value="attestations">
+Attestation de formation
+</option>
+
+<option value="identites">
+Carte Nationale d'Identité
+</option>
+
+<option value="photos">
+Photo d'identité
+</option>
+
+</select>
+
+<input
+type="file"
+id="fichier"
+required>
+
+<button
+id="envoyer">
+Téléverser
+</button>
+
+</div>
+
+<hr>
+
+<h2>
+Mes documents
+</h2>
+
+<div id="liste"></div>
+
+</div>
+
+<script src="assets/js/documents.js"></script>
+
+</body>
+</html>
