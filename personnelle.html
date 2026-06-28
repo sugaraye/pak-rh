@@ -2,18 +2,50 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Informations personnelles - PAK RH</title>
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
 
-<link rel="stylesheet" href="assets/css/style.css">
+<title>
+Informations personnelles - PAK RH
+</title>
+
+<link rel="stylesheet"
+href="assets/css/style.css">
 
 <style>
+
 .card{
-    max-width:1000px;
+    max-width:1100px;
     margin:40px auto;
     background:white;
     padding:40px;
     border-radius:20px;
+}
+
+.etape{
+    color:#666;
+    font-size:14px;
+    margin-bottom:10px;
+}
+
+.progress{
+    height:20px;
+    background:#e5e5e5;
+    border-radius:50px;
+    overflow:hidden;
+    margin-bottom:10px;
+}
+
+.progress-bar{
+    height:100%;
+    width:0%;
+    background:#009fe3;
+    transition:0.5s;
+}
+
+#pourcentage{
+    color:#555;
+    margin-bottom:30px;
 }
 
 .grid{
@@ -31,20 +63,67 @@ select{
     box-sizing:border-box;
 }
 
-button{
-    margin-top:30px;
-    background:#003B7A;
-    color:white;
-    border:none;
+.actions{
+    display:flex;
+    justify-content:space-between;
+    margin-top:40px;
+}
+
+.btn{
+    display:inline-block;
     padding:15px 30px;
     border-radius:10px;
+    text-decoration:none;
     cursor:pointer;
+    border:none;
+    font-size:15px;
+}
+
+.btn-retour{
+    background:#6c757d;
+    color:white;
+}
+
+.btn-enregistrer{
+    background:#003B7A;
+    color:white;
+}
+
+.btn-suivant{
+    background:#009fe3;
+    color:white;
+}
+
+.btn-suivant.disabled{
+    background:#cccccc;
+    pointer-events:none;
 }
 
 .success{
-    color:green;
-    margin-top:20px;
+    margin-top:25px;
+    background:#ecfdf5;
+    color:#166534;
+    padding:20px;
+    border-radius:15px;
 }
+
+@media(max-width:768px){
+
+.grid{
+    grid-template-columns:1fr;
+}
+
+.actions{
+    flex-direction:column;
+    gap:15px;
+}
+
+.btn{
+    text-align:center;
+}
+
+}
+
 </style>
 
 </head>
@@ -53,66 +132,246 @@ button{
 
 <div class="card">
 
-<h1>Informations personnelles</h1>
+<div class="etape">
+Étape 1 sur 5
+</div>
+
+<h1>
+Informations personnelles
+</h1>
+
+<div class="progress">
+<div
+id="barre"
+class="progress-bar">
+</div>
+</div>
+
+<p id="pourcentage">
+0 % complété
+</p>
 
 <form id="personForm">
 
 <div class="grid">
 
-<input type="text" id="nom" placeholder="Nom" required>
+<input
+type="text"
+id="nom"
+placeholder="Nom"
+required>
 
-<input type="text" id="prenom" placeholder="Prénom" required>
+<input
+type="text"
+id="prenom"
+placeholder="Prénom"
+required>
 
-<select id="sexe" required>
-<option value="">Sexe</option>
-<option>Masculin</option>
-<option>Féminin</option>
+<select
+id="sexe"
+required>
+
+<option value="">
+Sexe
+</option>
+
+<option>
+Masculin
+</option>
+
+<option>
+Féminin
+</option>
+
 </select>
 
-<input type="date" id="date_naissance" required>
+<input
+type="date"
+id="date_naissance"
+required>
 
-<input type="text" id="lieu_naissance"
-placeholder="Lieu de naissance" required>
+<input
+type="text"
+id="lieu_naissance"
+placeholder="Lieu de naissance"
+required>
 
-<input type="text" id="nationalite"
-value="Camerounaise" required>
+<input
+type="text"
+id="nationalite"
+value="Camerounaise"
+required>
 
-<input type="text" id="telephone"
-placeholder="Téléphone" required>
+<input
+type="text"
+id="telephone"
+placeholder="Téléphone"
+required>
 
-<input type="email" id="email"
-placeholder="Adresse email" required>
+<input
+type="email"
+id="email"
+placeholder="Adresse email"
+required>
 
-<input type="text" id="adresse"
-placeholder="Adresse de résidence" required>
+<input
+type="text"
+id="adresse"
+placeholder="Adresse de résidence"
+required>
 
-<input type="text" id="ville"
-placeholder="Ville" required>
+<input
+type="text"
+id="ville"
+placeholder="Ville"
+required>
 
-<select id="situation_familiale" required>
-<option value="">Situation familiale</option>
-<option>Célibataire</option>
-<option>Marié(e)</option>
-<option>Divorcé(e)</option>
-<option>Veuf(ve)</option>
+<select
+id="situation_familiale"
+required>
+
+<option value="">
+Situation familiale
+</option>
+
+<option>
+Célibataire
+</option>
+
+<option>
+Marié(e)
+</option>
+
+<option>
+Divorcé(e)
+</option>
+
+<option>
+Veuf(ve)
+</option>
+
 </select>
 
-<input type="number"
+<input
+type="number"
 id="nombre_enfants"
 placeholder="Nombre d'enfants"
 required>
 
 </div>
 
-<button type="submit">
+<div class="actions">
+
+<a
+href="dashboard.html"
+class="btn btn-retour">
+
+← Tableau de bord
+
+</a>
+
+<button
+type="submit"
+class="btn btn-enregistrer">
+
 Enregistrer
+
 </button>
+
+<a
+href="administrative.html"
+id="btnSuivant"
+class="btn btn-suivant disabled">
+
+Étape suivante →
+
+</a>
+
+</div>
 
 </form>
 
 <div id="message"></div>
 
 </div>
+
+<script>
+
+// récupération de l'employé connecté
+const employe =
+JSON.parse(
+localStorage.getItem("employe")
+) || {};
+
+// affichage progression existante
+let progression =
+employe.progression || 0;
+
+document
+.getElementById("barre")
+.style.width =
+progression + "%";
+
+document
+.getElementById("pourcentage")
+.innerHTML =
+progression +
+"% complété";
+
+if(progression >= 20){
+
+document
+.getElementById("btnSuivant")
+.classList
+.remove("disabled");
+
+}
+
+// après enregistrement réussi,
+// votre personnelle.js devra appeler :
+
+function miseAJourProgression(){
+
+employe.progression = 20;
+
+localStorage.setItem(
+"employe",
+JSON.stringify(employe)
+);
+
+document
+.getElementById("barre")
+.style.width =
+"20%";
+
+document
+.getElementById("pourcentage")
+.innerHTML =
+"20 % complété";
+
+document
+.getElementById("btnSuivant")
+.classList
+.remove("disabled");
+
+document
+.getElementById("message")
+.innerHTML =
+`
+<div class="success">
+
+Informations personnelles
+enregistrées avec succès.
+
+Vous pouvez maintenant
+passer à l'étape suivante.
+
+</div>
+`;
+
+}
+
+</script>
 
 <script src="assets/js/personnelle.js"></script>
 
