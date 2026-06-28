@@ -2,6 +2,17 @@ const employe =
 JSON.parse(
 localStorage.getItem("employe")
 );
+if (
+  !employe ||
+  employe.progression < 80
+) {
+  alert(
+    "Veuillez d'abord compléter vos diplômes."
+  );
+
+  window.location.href =
+    "dashboard.html";
+}
 
 if (!employe) {
   window.location.href =
