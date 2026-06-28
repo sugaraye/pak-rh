@@ -1,1 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
 
+<title>
+Expériences professionnelles
+</title>
+
+<link rel="stylesheet"
+href="assets/css/style.css">
+
+<style>
+
+.card{
+max-width:1100px;
+margin:40px auto;
+background:white;
+padding:40px;
+border-radius:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+input,
+textarea{
+width:100%;
+padding:15px;
+border:1px solid #ddd;
+border-radius:10px;
+box-sizing:border-box;
+}
+
+button{
+margin-top:25px;
+background:#003B7A;
+color:white;
+border:none;
+padding:15px 30px;
+border-radius:10px;
+cursor:pointer;
+}
+
+.experience{
+background:#f8f8f8;
+padding:20px;
+margin-top:20px;
+border-radius:15px;
+}
+
+.supprimer{
+background:#dc2626;
+margin-top:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>
+Expériences professionnelles
+</h1>
+
+<form id="experienceForm">
+
+<div class="grid">
+
+<input
+type="date"
+id="date_debut"
+required>
+
+<input
+type="date"
+id="date_fin">
+
+<input
+type="text"
+id="fonction"
+placeholder="Fonction occupée"
+required>
+
+<input
+type="text"
+id="service"
+placeholder="Service"
+required>
+
+<input
+type="text"
+id="employeur"
+placeholder="Employeur"
+required>
+
+<input
+type="text"
+id="ville"
+placeholder="Ville">
+
+<input
+type="text"
+id="pays"
+placeholder="Pays">
+
+</div>
+
+<br>
+
+<textarea
+id="description"
+rows="5"
+placeholder="Description de l'expérience">
+</textarea>
+
+<br>
+
+<button type="submit">
+Ajouter l'expérience
+</button>
+
+</form>
+
+<hr>
+
+<h2>
+Mes expériences
+</h2>
+
+<div id="liste"></div>
+
+</div>
+
+<script src="assets/js/experiences.js"></script>
+
+</body>
+</html>
