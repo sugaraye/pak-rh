@@ -1,1 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
 
+<title>
+Soumission du dossier RH
+</title>
+
+<link rel="stylesheet"
+href="assets/css/style.css">
+
+<style>
+
+.card{
+max-width:900px;
+margin:40px auto;
+background:white;
+padding:40px;
+border-radius:20px;
+}
+
+.check{
+background:#f8f8f8;
+padding:20px;
+border-radius:15px;
+margin-top:20px;
+}
+
+button{
+background:#003B7A;
+color:white;
+border:none;
+padding:15px 30px;
+border-radius:10px;
+cursor:pointer;
+margin-top:30px;
+}
+
+.success{
+margin-top:30px;
+background:#ecfdf5;
+padding:25px;
+border-radius:15px;
+color:#166534;
+}
+
+.warning{
+background:#fff7ed;
+padding:20px;
+border-radius:15px;
+margin-top:30px;
+}
+
+label{
+display:block;
+margin-top:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>
+Soumission du dossier RH
+</h1>
+
+<div class="check">
+
+<p>✓ Informations personnelles</p>
+
+<p>✓ Informations administratives</p>
+
+<p>✓ Expériences professionnelles</p>
+
+<p>✓ Diplômes et certifications</p>
+
+<p>✓ Documents justificatifs</p>
+
+</div>
+
+<div class="warning">
+
+Les informations soumises seront
+transmises à la Direction des
+Ressources Humaines du Port
+Autonome de Kribi.
+
+Après validation, certaines
+modifications pourront nécessiter
+l'autorisation de la DRH.
+
+</div>
+
+<label>
+
+<input
+type="checkbox"
+id="certifie"
+required>
+
+Je certifie que les informations
+fournies sont exactes et complètes.
+
+</label>
+
+<br>
+
+<button
+id="soumettre">
+
+Soumettre définitivement
+mon dossier
+
+</button>
+
+<div id="message"></div>
+
+</div>
+
+<script src="assets/js/soumission.js"></script>
+
+</body>
+</html>
