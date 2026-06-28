@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>
+Diplômes et Certifications
+</title>
+
+<link rel="stylesheet"
+href="assets/css/style.css">
+
+<style>
+
+.card{
+max-width:1100px;
+margin:40px auto;
+background:white;
+padding:40px;
+border-radius:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+input{
+width:100%;
+padding:15px;
+border:1px solid #ddd;
+border-radius:10px;
+box-sizing:border-box;
+}
+
+button{
+margin-top:20px;
+background:#003B7A;
+color:white;
+border:none;
+padding:15px 30px;
+border-radius:10px;
+cursor:pointer;
+}
+
+.item{
+background:#f8f8f8;
+padding:20px;
+margin-top:20px;
+border-radius:15px;
+}
+
+.supprimer{
+background:#dc2626;
+margin-top:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>
+Diplômes
+</h1>
+
+<form id="diplomeForm">
+
+<div class="grid">
+
+<input
+type="text"
+id="diplome"
+placeholder="Diplôme"
+required>
+
+<input
+type="text"
+id="specialite"
+placeholder="Spécialité">
+
+<input
+type="text"
+id="etablissement"
+placeholder="Établissement"
+required>
+
+<input
+type="text"
+id="pays"
+placeholder="Pays">
+
+<input
+type="number"
+id="annee"
+placeholder="Année"
+required>
+
+<input
+type="text"
+id="mention"
+placeholder="Mention">
+
+</div>
+
+<button type="submit">
+Ajouter le diplôme
+</button>
+
+</form>
+
+<hr>
+
+<h2>
+Mes diplômes
+</h2>
+
+<div id="liste"></div>
+
+</div>
+
+<script src="assets/js/diplomes.js"></script>
+
+</body>
+</html>
