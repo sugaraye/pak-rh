@@ -2,6 +2,13 @@ const employe =
 JSON.parse(
 localStorage.getItem("employe")
 );
+
+if(!employe){
+
+window.location.href =
+"login.html";
+
+}
 if (
   !employe ||
   employe.progression < 20
@@ -14,12 +21,6 @@ if (
     "dashboard.html";
 }
 
-if(!employe){
-
-window.location.href =
-"login.html";
-
-}
 
 document
 .getElementById("matricule")
