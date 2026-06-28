@@ -1,1 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Informations personnelles - PAK RH</title>
 
+<link rel="stylesheet" href="assets/css/style.css">
+
+<style>
+.card{
+    max-width:1000px;
+    margin:40px auto;
+    background:white;
+    padding:40px;
+    border-radius:20px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+input,
+select{
+    width:100%;
+    padding:15px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    box-sizing:border-box;
+}
+
+button{
+    margin-top:30px;
+    background:#003B7A;
+    color:white;
+    border:none;
+    padding:15px 30px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.success{
+    color:green;
+    margin-top:20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>Informations personnelles</h1>
+
+<form id="personForm">
+
+<div class="grid">
+
+<input type="text" id="nom" placeholder="Nom" required>
+
+<input type="text" id="prenom" placeholder="Prénom" required>
+
+<select id="sexe" required>
+<option value="">Sexe</option>
+<option>Masculin</option>
+<option>Féminin</option>
+</select>
+
+<input type="date" id="date_naissance" required>
+
+<input type="text" id="lieu_naissance"
+placeholder="Lieu de naissance" required>
+
+<input type="text" id="nationalite"
+value="Camerounaise" required>
+
+<input type="text" id="telephone"
+placeholder="Téléphone" required>
+
+<input type="email" id="email"
+placeholder="Adresse email" required>
+
+<input type="text" id="adresse"
+placeholder="Adresse de résidence" required>
+
+<input type="text" id="ville"
+placeholder="Ville" required>
+
+<select id="situation_familiale" required>
+<option value="">Situation familiale</option>
+<option>Célibataire</option>
+<option>Marié(e)</option>
+<option>Divorcé(e)</option>
+<option>Veuf(ve)</option>
+</select>
+
+<input type="number"
+id="nombre_enfants"
+placeholder="Nombre d'enfants"
+required>
+
+</div>
+
+<button type="submit">
+Enregistrer
+</button>
+
+</form>
+
+<div id="message"></div>
+
+</div>
+
+<script src="assets/js/personnelle.js"></script>
+
+</body>
+</html>
