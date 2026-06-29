@@ -1,18 +1,19 @@
-// Vérification de la connexion
 const employe =
 JSON.parse(
-    localStorage.getItem("employe")
+localStorage.getItem("employe")
 );
 
+// Vérification connexion
 if (!employe) {
     window.location.href =
     "login.html";
 }
 
-// Vérification de l'étape précédente
+// Vérification étape précédente
 if (
     (employe.progression || 0) < 60
-) {
+){
+
     alert(
         "Veuillez d'abord compléter vos expériences professionnelles."
     );
@@ -21,252 +22,242 @@ if (
     "dashboard.html";
 }
 
-// Chargement des diplômes existants
+// Affichage progression
+let progression =
+employe.progression || 60;
+
+barre.style.width =
+progression + "%";
+
+pourcentage.innerHTML =
+progression +
+"% complété";
+
+// Déblocage éventuel
+if (
+    progression >= 80
+){
+
+    btnSuivant
+    .classList
+    .remove(
+        "disabled"
+    );
+
+}
+
+// Chargement des diplômes
 chargerDiplomes();
 
 // Ajout d'un diplôme
 document
-.getElementById("diplomeForm")
+.getElementById(
+"diplomeForm"
+)
 .addEventListener(
 "submit",
-async (e)=>{
+async(e)=>{
 
-    e.preventDefault();
+e.preventDefault();
 
-    const body = {
+const body = {
 
-        employe_id:
-        employe.id,
+employe_id:
+employe.id,
 
-        diplome:
-        document
-        .getElementById(
-            "diplome"
-        )
-        .value
-        .trim(),
+diplome:
+diplome.value,
 
-        specialite:
-        document
-        .getElementById(
-            "specialite"
-        )
-        .value
-        .trim(),
+specialite:
+specialite.value,
 
-        etablissement:
-        document
-        .getElementById(
-            "etablissement"
-        )
-        .value
-        .trim(),
+etablissement:
+etablissement.value,
 
-        pays:
-        document
-        .getElementById(
-            "pays"
-        )
-        .value
-        .trim(),
+pays:
+pays.value,
 
-        annee:
-        document
-        .getElementById(
-            "annee"
-        )
-        .value,
+annee:
+annee.value,
 
-        mention:
-        document
-        .getElementById(
-            "mention"
-        )
-        .value
-        .trim()
+mention:
+mention.value
 
-    };
+};
 
-    try {
+try{
 
-        const response =
-        await fetch(
-            "/.netlify/functions/addDiplome",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type":
-                    "application/json"
-                },
-                body:
-                JSON.stringify(
-                    body
-                )
-            }
-        );
+const response =
+await fetch(
+"/.netlify/functions/addDiplome",
+{
+method:"POST",
+headers:{
+"Content-Type":
+"application/json"
+},
+body:
+JSON.stringify(body)
+}
+);
 
-        const result =
-        await response.json();
+const result =
+await response.json();
 
-        if (!response.ok) {
-            throw new Error(
-                result.message ||
-                "Erreur d'enregistrement."
-            );
-        }
+if(!response.ok){
 
-        // Mise à jour de la progression
-        employe.progression =
-        Math.max(
-            employe.progression || 0,
-            80
-        );
+throw new Error(
+result.message ||
+"Erreur d'enregistrement."
+);
 
-        localStorage.setItem(
-            "employe",
-            JSON.stringify(
-                employe
-            )
-        );
+}
 
-        // Réinitialisation du formulaire
-        document
-        .getElementById(
-            "diplomeForm"
-        )
-        .reset();
+// Progression
+employe.progression =
+Math.max(
+employe.progression || 0,
+80
+);
 
-        // Message
-        alert(
-            "Diplôme enregistré avec succès."
-        );
+localStorage.setItem(
+"employe",
+JSON.stringify(employe)
+);
 
-        // Rechargement de la liste
-        chargerDiplomes();
+// Mise à jour écran
+barre.style.width =
+"80%";
 
-    }
-    catch (e) {
+pourcentage.innerHTML =
+"80 % complété";
 
-        alert(
-            e.message
-        );
+btnSuivant
+.classList
+.remove(
+"disabled"
+);
 
-    }
+message.innerHTML =
+`
+<div class="success">
+
+✅ Diplôme enregistré.
+
+Vous pouvez maintenant
+passer à l'étape suivante.
+
+</div>
+`;
+
+diplomeForm.reset();
+
+chargerDiplomes();
+
+}
+catch(e){
+
+alert(
+e.message
+);
+
+}
 
 });
-
 
 // Chargement de la liste
 async function
 chargerDiplomes(){
 
-    try {
+try{
 
-        const response =
-        await fetch(
-            "/.netlify/functions/getDiplomes?id="
-            + employe.id
-        );
+const response =
+await fetch(
+"/.netlify/functions/getDiplomes?id="
++ employe.id
+);
 
-        const data =
-        await response.json();
+const data =
+await response.json();
 
-        let html = "";
+let html = "";
 
-        data.forEach(d => {
+data.forEach(d=>{
 
-            html += `
-            <div class="item">
+html += `
+<div class="item">
 
-                <h3>
-                    ${d.diplome}
-                </h3>
+<h3>
+${d.diplome}
+</h3>
 
-                <p>
-                    ${d.specialite || ""}
-                </p>
+<p>
+${d.specialite || ""}
+</p>
 
-                <p>
-                    ${d.etablissement}
-                </p>
+<p>
+${d.etablissement}
+</p>
 
-                <p>
-                    ${d.annee}
-                </p>
+<p>
+${d.annee}
+</p>
 
-                <button
-                    class="supprimer"
-                    onclick="supprimer(${d.id})">
+<button
+class="supprimer"
+onclick="
+supprimer(${d.id})
+">
 
-                    Supprimer
+Supprimer
 
-                </button>
+</button>
 
-            </div>
-            `;
+</div>
+`;
 
-        });
+});
 
-        document
-        .getElementById(
-            "liste"
-        )
-        .innerHTML =
-        html;
+liste.innerHTML =
+html;
 
-    }
-    catch {
+}
+catch{
 
-        document
-        .getElementById(
-            "liste"
-        )
-        .innerHTML =
-        "<p>Aucun diplôme enregistré.</p>";
-
-    }
+liste.innerHTML =
+"Aucun diplôme enregistré.";
 
 }
 
+}
 
 // Suppression
 async function
 supprimer(id){
 
-    if (
-        !confirm(
-            "Supprimer ce diplôme ?"
-        )
-    ) {
-        return;
-    }
+if(
+!confirm(
+"Supprimer ce diplôme ?"
+)
+){
+return;
+}
 
-    try {
+await fetch(
+"/.netlify/functions/deleteDiplome",
+{
+method:"POST",
+headers:{
+"Content-Type":
+"application/json"
+},
+body:
+JSON.stringify({
+id
+})
+}
+);
 
-        await fetch(
-            "/.netlify/functions/deleteDiplome",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type":
-                    "application/json"
-                },
-                body:
-                JSON.stringify({
-                    id
-                })
-            }
-        );
-
-        chargerDiplomes();
-
-    }
-    catch {
-
-        alert(
-            "Impossible de supprimer le diplôme."
-        );
-
-    }
+chargerDiplomes();
 
 }
