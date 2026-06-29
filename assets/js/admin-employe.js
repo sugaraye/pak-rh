@@ -254,7 +254,6 @@ Correction demandée.
 
 pdf.onclick =
 function(){
-
 window.open(
 "fiche-carriere.html?id="
 + id,
