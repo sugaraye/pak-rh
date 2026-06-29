@@ -1,0 +1,128 @@
+const admin =
+JSON.parse(
+localStorage.getItem(
+"admin"
+)
+);
+
+if(!admin){
+
+window.location.href =
+"admin-login.html";
+
+}
+
+nomAdmin.innerHTML =
+`Bienvenue ${admin.nom}`;
+
+chargerStats();
+rechercher("");
+
+logoutBtn.onclick =
+function(){
+
+localStorage.removeItem(
+"admin"
+);
+
+window.location.href =
+"admin-login.html";
+
+};
+
+async function
+chargerStats(){
+
+const response =
+await fetch(
+"/.netlify/functions/getStats"
+);
+
+const stats =
+await response.json();
+
+employes.innerHTML =
+stats.employes || 0;
+
+soumis.innerHTML =
+stats.soumis || 0;
+
+valides.innerHTML =
+stats.valides || 0;
+
+incomplets.innerHTML =
+stats.incomplets || 0;
+
+}
+
+recherche.addEventListener(
+"keyup",
+function(){
+
+rechercher(
+this.value
+);
+
+});
+
+async function
+rechercher(q){
+
+const response =
+await fetch(
+"/.netlify/functions/searchEmployes?q="
++
+encodeURIComponent(q)
+);
+
+const employes =
+await response.json();
+
+let html = "";
+
+employes.forEach(e=>{
+
+html += `
+<div class="item">
+
+<h3>
+${e.nom}
+${e.prenom}
+</h3>
+
+<p>
+${e.identifiant || ""}
+</p>
+
+<p>
+${e.direction || "-"}
+</p>
+
+<p>
+${e.service || "-"}
+</p>
+
+<p>
+Statut :
+${e.statut || "En cours"}
+</p>
+
+<a
+href="
+admin-employe.html?id=${e.id}
+"
+class="btn">
+
+Ouvrir le dossier
+
+</a>
+
+</div>
+`;
+
+});
+
+liste.innerHTML =
+html;
+
+}
