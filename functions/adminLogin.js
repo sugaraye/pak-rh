@@ -23,15 +23,15 @@ exports.handler = async (event) => {
     console.log("MOT_DE_PASSE =", mot_de_passe);
 
     const {
-      data,
-      error
-    } = await supabase
-      .from("administrateurs")
-      .select("*")
-      .eq("email", email)
-      .eq("mot_de_passe", mot_de_passe)
-      .eq("actif", true)
-      .single();
+  data,
+  error
+} =
+await supabase
+.from("administrateurs")
+.select("*")
+.ilike("email", email)
+.eq("actif", true)
+.single();
 
     console.log("DATA =", data);
     console.log("ERROR =", error);
