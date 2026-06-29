@@ -3,30 +3,60 @@ JSON.parse(
 localStorage.getItem("employe")
 );
 
+// Vérification connexion
 if (!employe) {
     window.location.href =
     "login.html";
 }
-if (
-  !employe ||
-  employe.progression < 40
-) {
-  alert(
-    "Veuillez d'abord compléter vos informations administratives."
-  );
 
-  window.location.href =
+// Vérification étape précédente
+if (
+    (employe.progression || 0) < 40
+){
+
+    alert(
+        "Veuillez d'abord compléter vos informations administratives."
+    );
+
+    window.location.href =
     "dashboard.html";
 }
+
+// Affichage progression
+let progression =
+employe.progression || 40;
+
+barre.style.width =
+progression + "%";
+
+pourcentage.innerHTML =
+progression +
+"% complété";
+
+// Déblocage éventuel
+if (
+    progression >= 60
+){
+
+    btnSuivant
+    .classList
+    .remove(
+        "disabled"
+    );
+
+}
+
+// Chargement des expériences
 chargerExperiences();
 
+// Ajout
 document
 .getElementById(
 "experienceForm"
 )
 .addEventListener(
 "submit",
-async (e)=>{
+async(e)=>{
 
 e.preventDefault();
 
@@ -61,6 +91,8 @@ description.value
 
 };
 
+try{
+
 const response =
 await fetch(
 "/.netlify/functions/addExperience",
@@ -75,36 +107,71 @@ JSON.stringify(body)
 }
 );
 
-if(response.ok){
+if(!response.ok){
 
-employe.progression = 60;
+throw new Error(
+"Erreur d'enregistrement."
+);
+
+}
+
+// Progression
+employe.progression =
+Math.max(
+employe.progression || 0,
+60
+);
 
 localStorage.setItem(
 "employe",
 JSON.stringify(employe)
 );
 
-document
-.getElementById(
-"experienceForm"
-)
-.reset();
+// Mise à jour écran
+barre.style.width =
+"60%";
+
+pourcentage.innerHTML =
+"60 % complété";
+
+btnSuivant
+.classList
+.remove(
+"disabled"
+);
+
+message.innerHTML =
+`
+<div class="success">
+
+✅ Expérience enregistrée.
+
+Vous pouvez maintenant
+passer à l'étape suivante.
+
+</div>
+`;
+
+experienceForm.reset();
 
 chargerExperiences();
 
 }
-else{
+catch(e){
 
 alert(
-"Erreur lors de l'enregistrement."
+e.message
 );
 
 }
 
 });
 
+// Chargement liste
 async function
 chargerExperiences(){
+
+try{
 
 const response =
 await fetch(
@@ -145,7 +212,9 @@ class="supprimer"
 onclick="
 supprimer(${exp.id})
 ">
+
 Supprimer
+
 </button>
 
 </div>
@@ -153,15 +222,20 @@ Supprimer
 
 });
 
-document
-.getElementById(
-"liste"
-)
-.innerHTML =
+liste.innerHTML =
 html;
 
 }
+catch{
 
+liste.innerHTML =
+"Aucune expérience.";
+
+}
+
+}
+
+// Suppression
 async function
 supprimer(id){
 
