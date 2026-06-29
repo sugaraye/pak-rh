@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>
+Dossier Employé
+</title>
+
+<link rel="stylesheet"
+href="assets/css/style.css">
+
+<style>
+
+body{
+background:#f5f7fa;
+font-family:Arial;
+padding:20px;
+}
+
+.card{
+max-width:1200px;
+margin:auto;
+background:white;
+padding:40px;
+border-radius:20px;
+}
+
+.section{
+background:#f8f8f8;
+padding:25px;
+border-radius:15px;
+margin-top:25px;
+}
+
+.item{
+background:white;
+padding:15px;
+border-radius:10px;
+margin-top:10px;
+}
+
+textarea{
+width:100%;
+height:120px;
+padding:15px;
+border:1px solid #ddd;
+border-radius:10px;
+box-sizing:border-box;
+}
+
+.btn{
+display:inline-block;
+padding:15px 30px;
+border:none;
+border-radius:10px;
+color:white;
+cursor:pointer;
+margin-top:20px;
+margin-right:10px;
+}
+
+.valider{
+background:#16a34a;
+}
+
+.correction{
+background:#dc2626;
+}
+
+.retour{
+background:#6c757d;
+text-decoration:none;
+}
+
+a.document{
+display:block;
+margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<a
+href="admin-dashboard.html"
+class="btn retour">
+
+← Retour
+
+</a>
+
+<h1 id="nom"></h1>
+
+<div class="section">
+
+<h2>
+Informations générales
+</h2>
+
+<div id="infos"></div>
+
+</div>
+
+<div class="section">
+
+<h2>
+Expériences professionnelles
+</h2>
+
+<div id="experiences"></div>
+
+</div>
+
+<div class="section">
+
+<h2>
+Diplômes
+</h2>
+
+<div id="diplomes"></div>
+
+</div>
+
+<div class="section">
+
+<h2>
+Documents
+</h2>
+
+<div id="documents"></div>
+
+</div>
+
+<div class="section">
+
+<h2>
+Décision RH
+</h2>
+
+<textarea
+id="commentaire"
+placeholder="
+Commentaire RH...
+">
+</textarea>
+
+<br>
+
+<button
+id="valider"
+class="btn valider">
+
+Valider le dossier
+
+</button>
+
+<button
+id="corriger"
+class="btn correction">
+
+Demander une correction
+
+</button>
+
+<div id="message"></div>
+
+</div>
+
+</div>
+
+<script src="assets/js/admin-employe.js"></script>
+
+</body>
+</html>
