@@ -23,83 +23,70 @@ exports.handler = async (event) => {
       (body.mot_de_passe || "")
         .trim();
 
-    console.log("EMAIL =", email);
+    console.log("EMAIL RECU =", email);
+
+    // Test : lire tous les administrateurs
+    const {
+      data: tous,
+      error: errTous
+    } = await supabase
+      .from("administrateurs")
+      .select("email");
+
+    console.log("TOUS LES ADMINS =", tous);
+    console.log("ERREUR TOUS =", errTous);
 
     const {
       data,
       error
-    } =
-    await supabase
+    } = await supabase
       .from("administrateurs")
       .select("*")
-      .ilike("email", email)
+      .eq("email", email)
       .single();
 
-    console.log("DATA =", data);
-    console.log("ERROR =", error);
+    console.log("ADMIN =", data);
+    console.log("ERREUR =", error);
 
-    // Administrateur introuvable
     if (error || !data) {
-
       return {
         statusCode: 401,
         body: JSON.stringify({
           erreur: "Adresse email inconnue."
         })
       };
-
     }
 
-    // Compte désactivé
     if (!data.actif) {
-
       return {
         statusCode: 403,
         body: JSON.stringify({
-          erreur:
-            "Votre compte RH est désactivé."
+          erreur: "Compte désactivé."
         })
       };
-
     }
 
-    // Mot de passe incorrect
     if (
       (data.mot_de_passe || "").trim() !==
       mot_de_passe
     ) {
-
       return {
         statusCode: 401,
         body: JSON.stringify({
-          erreur:
-            "Mot de passe incorrect."
+          erreur: "Mot de passe incorrect."
         })
       };
-
     }
 
-    // Connexion réussie
     return {
       statusCode: 200,
       body: JSON.stringify({
-
         admin: {
-
-          id:
-            data.id,
-
-          nom:
-            data.nom,
-
-          email:
-            data.email,
-
-          role:
-            data.role
-
+          id: data.id,
+          nom: data.nom,
+          email: data.email,
+          role: data.role
         }
-
       })
     };
 
@@ -111,9 +98,7 @@ exports.handler = async (event) => {
     return {
       statusCode: 500,
       body: JSON.stringify({
-        erreur:
-          "Erreur serveur : " +
-          e.message
+        erreur: e.message
       })
     };
 
