@@ -4,171 +4,202 @@
 
 <meta charset="UTF-8">
 <meta name="viewport"
-content="width=device-width,initial-scale=1">
+content="width=device-width, initial-scale=1">
 
 <title>
 Port Autonome de Kribi
 -
-Actualisation du Fichier-Carrière
+Système d'Actualisation du Fichier-Carrière
 </title>
 
-<link rel="stylesheet"
+<link
+rel="stylesheet"
 href="assets/css/style.css">
 
 <style>
 
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f5f7fa;
-color:#333;
+/* ==========================
+NAVIGATION
+========================== */
+
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:80px;
+    background:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 40px;
+    box-sizing:border-box;
+    box-shadow:
+        0 2px 15px
+        rgba(0,0,0,.08);
+    z-index:1000;
 }
+
+.nav-brand{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.nav-brand img{
+    width:55px;
+}
+
+.nav-brand span{
+    color:#003B7A;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.nav-menu{
+    display:flex;
+    gap:30px;
+}
+
+.nav-menu a{
+    color:#003B7A;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.nav-menu a:hover{
+    color:#009fe3;
+}
+
+/* ==========================
+HERO
+========================== */
 
 .hero{
-background:#003B7A;
-color:white;
-padding:60px 20px;
-text-align:center;
+    margin-top:80px;
 }
 
-.hero h1{
-margin:0;
-font-size:40px;
-}
-
-.hero h2{
-margin-top:15px;
-font-weight:normal;
-}
-
-.hero p{
-max-width:800px;
-margin:auto;
-margin-top:20px;
-line-height:1.6;
-}
+/* ==========================
+ALERTE
+========================== */
 
 .alerte{
-background:#fff7ed;
-border-left:6px solid #f59e0b;
-padding:25px;
-max-width:1100px;
-margin:40px auto;
-border-radius:15px;
-font-size:17px;
+    max-width:1200px;
+    margin:50px auto;
+    background:#fff7ed;
+    border-left:6px solid #f59e0b;
+    padding:30px;
+    border-radius:20px;
+    box-sizing:border-box;
 }
+
+/* ==========================
+CONTAINER
+========================== */
 
 .container{
-max-width:1200px;
-margin:auto;
-padding:20px;
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
 }
 
+/* ==========================
+CARTES
+========================== */
+
 .cards{
-display:grid;
-grid-template-columns:
-repeat(
-auto-fit,
-minmax(
-320px,
-1fr
-)
-);
-gap:40px;
-margin-top:40px;
+    display:grid;
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(
+                350px,
+                1fr
+            )
+        );
+
+    gap:40px;
+    margin-top:50px;
 }
 
 .card{
-background:white;
-padding:40px;
-border-radius:25px;
-text-align:center;
-box-shadow:
-0 5px 20px
-rgba(
-0,
-0,
-0,
-0.08
-);
+    background:white;
+    border-radius:25px;
+    padding:45px;
+    text-align:center;
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.08);
 }
 
 .icon{
-font-size:70px;
-margin-bottom:20px;
-}
-
-.card h2{
-color:#003B7A;
-margin-bottom:20px;
+    font-size:80px;
+    margin-bottom:25px;
 }
 
 .card p{
-line-height:1.6;
-margin-bottom:30px;
+    line-height:1.8;
 }
 
-.btn{
-display:block;
-background:#003B7A;
-color:white;
-padding:18px;
-border-radius:12px;
-text-decoration:none;
-margin-top:15px;
-font-weight:bold;
-}
-
-.btn:hover{
-background:#002b5c;
-}
-
-.btn-secondaire{
-background:#009fe3;
-}
-
-.btn-secondaire:hover{
-background:#0088c7;
-}
+/* ==========================
+CONTACTS
+========================== */
 
 .contacts{
-background:white;
-padding:40px;
-border-radius:25px;
-margin-top:50px;
-box-shadow:
-0 5px 20px
-rgba(
-0,
-0,
-0,
-0.08
-);
-text-align:center;
+    background:white;
+    border-radius:25px;
+    padding:45px;
+    margin-top:60px;
+    text-align:center;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.08);
 }
 
-.contacts h2{
-color:#003B7A;
-margin-bottom:30px;
-}
+/* ==========================
+FOOTER
+========================== */
 
 .footer{
-margin-top:50px;
-padding:30px;
-background:#003B7A;
-color:white;
-text-align:center;
+    margin-top:80px;
+    background:#003B7A;
+    color:white;
+    text-align:center;
+    padding:40px 20px;
 }
+
+/* ==========================
+RESPONSIVE
+========================== */
 
 @media(max-width:768px){
 
-.hero h1{
-font-size:30px;
-}
+    .navbar{
+        flex-direction:column;
+        height:auto;
+        padding:20px;
+    }
 
-.cards{
-grid-template-columns:1fr;
-}
+    .nav-menu{
+        margin-top:15px;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:15px;
+    }
+
+    .hero{
+        margin-top:140px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .card,
+    .contacts{
+        padding:30px;
+    }
 
 }
 
@@ -178,13 +209,62 @@ grid-template-columns:1fr;
 
 <body>
 
-<div class="hero">
+<!-- ==========================
+NAVBAR
+========================== -->
+
+<header class="navbar">
+
+<div class="nav-brand">
+
+<img
+src="assets/images/logo-pak.png"
+alt="Logo PAK">
+
+<span>
+
+PORT AUTONOME
+DE KRIBI
+
+</span>
+
+</div>
+
+<nav class="nav-menu">
+
+<a href="#accueil">
+Accueil
+</a>
+
+<a href="#employe">
+Employé
+</a>
+
+<a href="#rh">
+RH
+</a>
+
+<a href="#contacts">
+Contact
+</a>
+
+</nav>
+
+</header>
+
+<!-- ==========================
+BANNIÈRE
+========================== -->
+
+<section
+id="accueil"
+class="hero">
 
 <img
 src="assets/images/logo-pak.png"
 alt="Logo PAK"
 class="logo">
-  
+
 <h1>
 PORT AUTONOME DE KRIBI
 </h1>
@@ -197,32 +277,99 @@ Direction des Ressources Humaines
 
 Système d'Actualisation
 du Fichier-Carrière
-du Personnel du
-Port Autonome de Kribi.
+du Personnel
+du Port Autonome de Kribi.
 
 </p>
 
+</section>
+
+<!-- ==========================
+STATISTIQUES
+========================== -->
+
+<section class="stats">
+
+<div class="stat-card">
+
+<div
+id="nbEmployes"
+class="nombre">
+0
 </div>
+
+<div>
+Employés inscrits
+</div>
+
+</div>
+
+<div class="stat-card">
+
+<div
+id="nbSoumis"
+class="nombre">
+0
+</div>
+
+<div>
+Dossiers soumis
+</div>
+
+</div>
+
+<div class="stat-card">
+
+<div
+id="nbValides"
+class="nombre">
+0
+</div>
+
+<div>
+Dossiers validés
+</div>
+
+</div>
+
+</section>
+
+<!-- ==========================
+COMMUNIQUÉ RH
+========================== -->
 
 <div class="alerte">
 
+
 <strong>
-Campagne d'actualisation du fichier-carrière
+
+Campagne d'actualisation
+du fichier-carrière
+
 </strong>
 
 <br><br>
 
-Tous les employés du Port Autonome de Kribi
-sont invités à mettre à jour leurs informations
-personnelles, administratives et professionnelles.
+Tous les employés du
+Port Autonome de Kribi
+sont invités à mettre à jour
+leurs informations
+personnelles,
+administratives et professionnelles.
 
 </div>
+
+<!-- ==========================
+ESPACES
+========================== -->
 
 <div class="container">
 
 <div class="cards">
 
-<div class="card">
+<div
+id="employe"
+class="card">
 
 <div class="icon">
 👤
@@ -235,15 +382,15 @@ Espace Employé
 <p>
 
 Créer votre compte,
-actualiser votre dossier
-et suivre l'état de traitement
-de votre fichier-carrière.
+mettre à jour vos informations
+et suivre le traitement
+de votre dossier RH.
 
 </p>
 
 <a
 href="create-account.html"
-class="btn">
+class="btn-primary">
 
 Créer mon compte
 
@@ -251,7 +398,7 @@ Créer mon compte
 
 <a
 href="login.html"
-class="btn btn-secondaire">
+class="btn-secondary">
 
 Accéder à mon dossier
 
@@ -259,7 +406,9 @@ Accéder à mon dossier
 
 </div>
 
-<div class="card">
+<div
+id="rh"
+class="card">
 
 <div class="icon">
 👔
@@ -272,15 +421,15 @@ Espace RH
 <p>
 
 Consulter les dossiers,
-effectuer les vérifications,
-demander des corrections
-et valider les fichiers-carrière.
+demander des corrections,
+valider les fichiers-carrière
+et générer les fiches RH.
 
 </p>
 
 <a
 href="admin-login.html"
-class="btn">
+class="btn-primary">
 
 Connexion RH
 
@@ -290,7 +439,13 @@ Connexion RH
 
 </div>
 
-<div class="contacts">
+<!-- ==========================
+CONTACTS
+========================== -->
+
+<div
+id="contacts"
+class="contacts">
 
 <h2>
 Contacts
@@ -327,21 +482,25 @@ www.pak.cm
 
 </div>
 
-<div class="footer">
+<!-- ==========================
+FOOTER
+========================== -->
+
+<footer class="footer">
 
 © 2026
 Port Autonome de Kribi
 
-<br>
+<br><br>
 
 Direction des Ressources Humaines
 
-<br>
+<br><br>
 
 Système d'Actualisation
 du Fichier-Carrière du Personnel
 
-</div>
+</footer>
 
 <script>
 
@@ -375,6 +534,55 @@ if(employe){
 
 window.location.href =
 "dashboard.html";
+
+}
+
+/*
+Statistiques temps réel
+*/
+
+chargerStats();
+
+async function
+chargerStats(){
+
+try{
+
+const response =
+await fetch(
+"/.netlify/functions/getStats"
+);
+
+const stats =
+await response.json();
+
+document
+.getElementById(
+"nbEmployes"
+)
+.innerHTML =
+stats.employes || 0;
+
+document
+.getElementById(
+"nbSoumis"
+)
+.innerHTML =
+stats.soumis || 0;
+
+document
+.getElementById(
+"nbValides"
+)
+.innerHTML =
+stats.valides || 0;
+
+}
+catch(e){
+
+console.log(e);
+
+}
 
 }
 
