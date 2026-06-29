@@ -6,7 +6,7 @@
 content="width=device-width,initial-scale=1">
 
 <title>
-Expériences professionnelles
+Expériences professionnelles - PAK RH
 </title>
 
 <link rel="stylesheet"
@@ -20,6 +20,32 @@ margin:40px auto;
 background:white;
 padding:40px;
 border-radius:20px;
+}
+
+.etape{
+color:#666;
+font-size:14px;
+margin-bottom:10px;
+}
+
+.progress{
+height:20px;
+background:#e5e5e5;
+border-radius:50px;
+overflow:hidden;
+margin-bottom:10px;
+}
+
+.progress-bar{
+height:100%;
+width:0%;
+background:#009fe3;
+transition:.5s;
+}
+
+#pourcentage{
+color:#555;
+margin-bottom:30px;
 }
 
 .grid{
@@ -37,8 +63,11 @@ border-radius:10px;
 box-sizing:border-box;
 }
 
+textarea{
+grid-column:1 / -1;
+}
+
 button{
-margin-top:25px;
 background:#003B7A;
 color:white;
 border:none;
@@ -47,16 +76,64 @@ border-radius:10px;
 cursor:pointer;
 }
 
+.actions{
+display:flex;
+justify-content:space-between;
+margin-top:40px;
+}
+
+.btn{
+display:inline-block;
+padding:15px 30px;
+border-radius:10px;
+text-decoration:none;
+color:white;
+}
+
+.btn-retour{
+background:#6c757d;
+}
+
+.btn-suivant{
+background:#009fe3;
+}
+
+.btn-suivant.disabled{
+background:#cccccc;
+pointer-events:none;
+}
+
 .experience{
 background:#f8f8f8;
 padding:20px;
-margin-top:20px;
 border-radius:15px;
+margin-top:20px;
 }
 
 .supprimer{
 background:#dc2626;
 margin-top:15px;
+}
+
+.success{
+background:#ecfdf5;
+color:#166534;
+padding:20px;
+border-radius:15px;
+margin-top:20px;
+}
+
+@media(max-width:768px){
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.actions{
+flex-direction:column;
+gap:15px;
+}
+
 }
 
 </style>
@@ -67,9 +144,24 @@ margin-top:15px;
 
 <div class="card">
 
+<div class="etape">
+Étape 3 sur 5
+</div>
+
 <h1>
 Expériences professionnelles
 </h1>
+
+<div class="progress">
+<div
+id="barre"
+class="progress-bar">
+</div>
+</div>
+
+<p id="pourcentage">
+40 % complété
+</p>
 
 <form id="experienceForm">
 
@@ -112,15 +204,13 @@ type="text"
 id="pays"
 placeholder="Pays">
 
-</div>
-
-<br>
-
 <textarea
 id="description"
 rows="5"
 placeholder="Description de l'expérience">
 </textarea>
+
+</div>
 
 <br>
 
@@ -130,6 +220,8 @@ Ajouter l'expérience
 
 </form>
 
+<div id="message"></div>
+
 <hr>
 
 <h2>
@@ -137,6 +229,27 @@ Mes expériences
 </h2>
 
 <div id="liste"></div>
+
+<div class="actions">
+
+<a
+href="dashboard.html"
+class="btn btn-retour">
+
+← Tableau de bord
+
+</a>
+
+<a
+href="diplomes.html"
+id="btnSuivant"
+class="btn btn-suivant disabled">
+
+Étape suivante →
+
+</a>
+
+</div>
 
 </div>
 
