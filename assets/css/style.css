@@ -1,72 +1,107 @@
+/* ==========================
+   STYLE GÉNÉRAL
+========================== */
+
 body{
     margin:0;
-    font-family:Arial,sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     background:#f5f7fa;
+    color:#333;
+    line-height:1.6;
 }
-.pdf{
-background:#003B7A;
-}
+
+/* ==========================
+   BANNIÈRE D'ACCUEIL
+========================== */
 
 .hero{
-background:
-linear-gradient(
-rgba(0,59,122,0.80),
-rgba(0,59,122,0.80)
-),
-url('assets/images/port-kribi.jpg');
+    background:
+        linear-gradient(
+            rgba(0,59,122,0.80),
+            rgba(0,59,122,0.80)
+        ),
+        url('/assets/images/port-kribi.jpg');
 
-background-size:cover;
-background-position:center;
-color:white;
-padding:100px 20px;
-text-align:center;
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    color:white;
+    text-align:center;
+    padding:100px 20px;
 }
+
+.hero h1{
+    color:white;
+    margin:0;
+    font-size:42px;
+}
+
+.hero h2{
+    color:white;
+    margin-top:15px;
+    font-weight:normal;
+}
+
+.hero p{
+    max-width:900px;
+    margin:25px auto 0 auto;
+    font-size:18px;
+}
+
+/* ==========================
+   LOGO PAK
+========================== */
 
 .logo{
-width:130px;
-margin-bottom:25px;
-background:white;
-padding:10px;
-border-radius:15px;
+    width:130px;
+    max-width:100%;
+    margin-bottom:25px;
+    background:white;
+    padding:10px;
+    border-radius:15px;
+    box-sizing:border-box;
 }
 
+/* ==========================
+   STATISTIQUES
+========================== */
+
 .stats{
-max-width:1200px;
-margin:-40px auto 40px auto;
-display:grid;
-grid-template-columns:
-repeat(
-auto-fit,
-minmax(
-250px,
-1fr
-)
-);
-gap:25px;
-padding:0 20px;
+    max-width:1200px;
+    margin:-40px auto 40px auto;
+    padding:0 20px;
+
+    display:grid;
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(250px,1fr)
+        );
+
+    gap:25px;
 }
 
 .stat-card{
-background:white;
-padding:30px;
-border-radius:20px;
-text-align:center;
-box-shadow:
-0 5px 20px
-rgba(
-0,
-0,
-0,
-0.08
-);
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,0.08);
 }
 
 .nombre{
-font-size:45px;
-font-weight:bold;
-color:#003B7A;
-margin-bottom:10px;
+    font-size:45px;
+    font-weight:bold;
+    color:#003B7A;
+    margin-bottom:10px;
 }
+
+/* ==========================
+   TITRES
+========================== */
 
 h1{
     color:#003B7A;
@@ -80,31 +115,12 @@ h2{
 
 h3{
     color:#003B7A;
+    margin-top:0;
 }
 
-.actions{
-    margin-top:40px;
-}
-
-.btn-primary,
-.btn-secondary{
-    display:inline-block;
-    padding:15px 30px;
-    margin:10px;
-    border-radius:10px;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-.btn-primary{
-    background:#003B7A;
-    color:white;
-}
-
-.btn-secondary{
-    background:#F2B705;
-    color:#003B7A;
-}
+/* ==========================
+   BLOCS
+========================== */
 
 .communique{
     background:white;
@@ -112,32 +128,135 @@ h3{
     margin:40px auto;
     padding:40px;
     border-radius:20px;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,0.08);
 }
-.btn-success{
-    background:#16a34a;
-    color:white;
+
+.actions{
+    margin-top:40px;
+    text-align:center;
+}
+
+/* ==========================
+   BOUTONS
+========================== */
+
+.btn-primary,
+.btn-secondary,
+.btn-success,
+.btn-light,
+.pdf{
+
+    display:inline-block;
     padding:15px 30px;
+    margin:10px;
     border-radius:10px;
     text-decoration:none;
     font-weight:bold;
-    display:inline-block;
-    margin:10px;
+    border:none;
+    cursor:pointer;
+    transition:all .25s ease;
 }
+
+/* Bleu PAK */
+
+.btn-primary,
+.pdf{
+    background:#003B7A;
+    color:white;
+}
+
+.btn-primary:hover,
+.pdf:hover{
+    background:#002b5c;
+}
+
+/* Jaune PAK */
+
+.btn-secondary{
+    background:#F2B705;
+    color:#003B7A;
+}
+
+.btn-secondary:hover{
+    background:#d89f04;
+}
+
+/* Vert */
+
+.btn-success{
+    background:#16a34a;
+    color:white;
+}
+
+.btn-success:hover{
+    background:#15803d;
+}
+
+/* Blanc */
 
 .btn-light{
     background:#ffffff;
     border:1px solid #d1d5db;
     color:#003B7A;
-    padding:15px 30px;
-    border-radius:10px;
-    text-decoration:none;
-    font-weight:bold;
-    display:inline-block;
-    margin:10px;
 }
+
+.btn-light:hover{
+    background:#f3f4f6;
+}
+
+/* ==========================
+   PIED DE PAGE
+========================== */
 
 footer{
     text-align:center;
     padding:30px;
     color:#666;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media(max-width:768px){
+
+    .hero{
+        padding:70px 20px;
+    }
+
+    .hero h1{
+        font-size:30px;
+    }
+
+    .hero h2{
+        font-size:22px;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    .stats{
+        margin:30px 20px;
+        grid-template-columns:1fr;
+    }
+
+    .communique{
+        margin:20px;
+        padding:25px;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-success,
+    .btn-light,
+    .pdf{
+        display:block;
+        width:100%;
+        box-sizing:border-box;
+        margin:15px 0;
+    }
 }
