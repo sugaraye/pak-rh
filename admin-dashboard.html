@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>
+Espace RH Administrateur
+</title>
+
+<link rel="stylesheet"
+href="assets/css/style.css">
+
+<style>
+
+body{
+background:#f5f7fa;
+font-family:Arial;
+padding:20px;
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+}
+
+.cards{
+display:grid;
+grid-template-columns:
+repeat(
+auto-fit,
+minmax(
+220px,
+1fr
+)
+);
+gap:20px;
+margin-top:30px;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:20px;
+text-align:center;
+box-shadow:
+0 5px 20px
+rgba(
+0,
+0,
+0,
+.08
+);
+}
+
+.nombre{
+font-size:40px;
+font-weight:bold;
+color:#003B7A;
+}
+
+.recherche{
+background:white;
+padding:30px;
+border-radius:20px;
+margin-top:30px;
+}
+
+input{
+width:100%;
+padding:15px;
+border:1px solid #ddd;
+border-radius:10px;
+box-sizing:border-box;
+}
+
+.liste{
+margin-top:20px;
+}
+
+.item{
+background:white;
+padding:20px;
+border-radius:15px;
+margin-top:15px;
+}
+
+.btn{
+display:inline-block;
+background:#003B7A;
+color:white;
+padding:12px 20px;
+border-radius:10px;
+text-decoration:none;
+margin-top:10px;
+}
+
+.logout{
+background:#dc2626;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<div>
+
+<h1>
+Port Autonome de Kribi
+</h1>
+
+<h3>
+Direction des Ressources Humaines
+</h3>
+
+<p id="nomAdmin"></p>
+
+</div>
+
+<button
+id="logoutBtn"
+class="btn logout">
+
+Déconnexion
+
+</button>
+
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>Employés</h3>
+<div
+id="employes"
+class="nombre">
+0
+</div>
+</div>
+
+<div class="card">
+<h3>Dossiers soumis</h3>
+<div
+id="soumis"
+class="nombre">
+0
+</div>
+</div>
+
+<div class="card">
+<h3>Dossiers validés</h3>
+<div
+id="valides"
+class="nombre">
+0
+</div>
+</div>
+
+<div class="card">
+<h3>Incomplets</h3>
+<div
+id="incomplets"
+class="nombre">
+0
+</div>
+</div>
+
+</div>
+
+<div class="recherche">
+
+<h2>
+Recherche d'un employé
+</h2>
+
+<input
+type="text"
+id="recherche"
+placeholder="
+Nom,
+matricule,
+identifiant,
+direction,
+service...
+">
+
+<div
+id="liste"
+class="liste">
+</div>
+
+</div>
+
+<script src="assets/js/admin-dashboard.js"></script>
+
+</body>
+</html>
