@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>
+Fiche Carrière
+</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:40px;
+color:#222;
+}
+
+.header{
+text-align:center;
+border-bottom:3px solid #003B7A;
+padding-bottom:20px;
+}
+
+.logo{
+font-size:26px;
+font-weight:bold;
+color:#003B7A;
+}
+
+.sous-titre{
+font-size:18px;
+margin-top:10px;
+}
+
+.section{
+margin-top:35px;
+}
+
+.section h2{
+background:#003B7A;
+color:white;
+padding:12px;
+font-size:18px;
+}
+
+.ligne{
+margin-top:10px;
+}
+
+.photo{
+width:130px;
+height:160px;
+border:1px solid #ccc;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-top:20px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+table,
+th,
+td{
+border:1px solid #ddd;
+}
+
+th,
+td{
+padding:12px;
+}
+
+.footer{
+margin-top:70px;
+display:flex;
+justify-content:space-between;
+}
+
+.signature{
+text-align:center;
+width:300px;
+}
+
+.btn{
+position:fixed;
+top:20px;
+right:20px;
+padding:15px 25px;
+background:#003B7A;
+color:white;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+@media print{
+
+.btn{
+display:none;
+}
+
+body{
+margin:20px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<button
+class="btn"
+onclick="window.print()">
+
+🖨 Imprimer / PDF
+
+</button>
+
+<div class="header">
+
+<div class="logo">
+
+PORT AUTONOME DE KRIBI
+
+</div>
+
+<div class="sous-titre">
+
+DIRECTION DES RESSOURCES HUMAINES
+
+</div>
+
+<h1>
+FICHE CARRIÈRE DU PERSONNEL
+</h1>
+
+</div>
+
+<div
+id="contenu">
+
+Chargement...
+
+</div>
+
+<script src="assets/js/fiche-carriere.js"></script>
+
+</body>
+</html>
