@@ -6,7 +6,6 @@ localStorage.getItem(
 );
 
 if(!admin){
-
 window.location.href =
 "admin-login.html";
 
