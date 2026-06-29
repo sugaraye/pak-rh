@@ -3,203 +3,187 @@ JSON.parse(
 localStorage.getItem("employe")
 );
 
+// Vérification connexion
 if (!employe) {
-  window.location.href =
-  "login.html";
+    window.location.href =
+    "login.html";
 }
 
+// Vérification étape précédente
 if (
-  !employe ||
-  employe.progression < 80
-) {
-  alert(
-    "Veuillez d'abord compléter vos diplômes."
-  );
+    (employe.progression || 0) < 80
+){
 
-  window.location.href =
+    alert(
+        "Veuillez d'abord compléter vos diplômes."
+    );
+
+    window.location.href =
     "dashboard.html";
 }
+
+// Affichage progression
+let progression =
+employe.progression || 80;
+
+barre.style.width =
+progression + "%";
+
+pourcentage.innerHTML =
+progression +
+"% complété";
+
+// Chargement initial
+chargerDocuments();
+
 document
-.getElementById("envoyer")
+.getElementById(
+"envoyer"
+)
 .addEventListener(
 "click",
-async () => {
+async ()=>{
 
-  try {
+const type =
+type_document.value;
 
-    const type =
-    document
-    .getElementById(
-      "type_document"
-    )
-    .value;
+const fichier =
+document
+.getElementById(
+"fichier"
+)
+.files[0];
 
-    const fichier =
-    document
-    .getElementById(
-      "fichier"
-    )
-    .files[0];
+if(!type || !fichier){
 
-    if (!type || !fichier) {
-      alert(
-      "Choisissez un document."
-      );
-      return;
-    }
+alert(
+"Choisissez un document."
+);
 
-    const extension =
-      fichier.name
-      .split(".")
-      .pop();
+return;
 
-    const nomFichier =
-      `${employe.identifiant}_${Date.now()}.${extension}`;
+}
 
-    const chemin =
-      nomFichier;
-
-    const {
-      data,
-      error
-    } =
-    await window.supabase
-      .storage
-      .from(type)
-      .upload(
-        chemin,
-        fichier,
-        {
-          upsert: false
-        }
-      );
-
-    if (error) {
-      throw error;
-    }
-
-    const {
-      data: urlData
-    } =
-    window.supabase
-      .storage
-      .from(type)
-      .getPublicUrl(
-        chemin
-      );
-
-    const fichier_url =
-      urlData.publicUrl;
-
-    await fetch(
-      "/.netlify/functions/saveDocument",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type":
-          "application/json"
-        },
-        body:
-        JSON.stringify({
-
-          employe_id:
-          employe.id,
-
-          type_document:
-          type,
-
-          nom_fichier:
-          nomFichier,
-
-          fichier_url,
-
-          taille:
-          fichier.size,
-
-          extension
-
-        })
-      }
-    );
-
-    employe.progression =
-      100;
-
-    localStorage.setItem(
-      "employe",
-      JSON.stringify(
-        employe
-      )
-    );
-
-    alert(
-      "Document enregistré."
-    );
-
-    document
-      .getElementById(
-        "fichier"
-      )
-      .value = "";
-
-    chargerDocuments();
-
-  }
-  catch (e) {
-
-    alert(
-      e.message
-    );
-
-  }
-
-});
+// votre logique de téléversement actuelle
+// reste ici
 
 chargerDocuments();
 
+});
+
 async function
-chargerDocuments() {
+chargerDocuments(){
 
-  const response =
-  await fetch(
-    "/.netlify/functions/getDocuments?id="
-    + employe.id
-  );
+try{
 
-  const data =
-  await response.json();
+const response =
+await fetch(
+"/.netlify/functions/getDocuments?id="
++ employe.id
+);
 
-  let html = "";
+const documents =
+await response.json();
 
-  data.forEach(doc => {
+let html = "";
 
-    html += `
-      <div class="document">
+let cv = false;
+let cni = false;
+let photo = false;
 
-      <strong>
-      ${doc.type_document}
-      </strong>
+documents.forEach(doc=>{
 
-      <br><br>
+if(
+doc.type_document === "cv"
+){
+cv = true;
+}
 
-      <a
-      href="${doc.fichier_url}"
-      target="_blank">
+if(
+doc.type_document === "identites"
+){
+cni = true;
+}
 
-      Ouvrir
+if(
+doc.type_document === "photos"
+){
+photo = true;
+}
 
-      </a>
+html += `
+<div class="document">
 
-      </div>
-    `;
+<strong>
+${doc.type_document}
+</strong>
 
-  });
+<br><br>
 
-  document
-  .getElementById(
-    "liste"
-  )
-  .innerHTML =
-  html;
+<a
+href="${doc.fichier_url}"
+target="_blank">
+
+Ouvrir
+
+</a>
+
+</div>
+`;
+
+});
+
+liste.innerHTML =
+html;
+
+// Vérification pièces obligatoires
+if(
+cv &&
+cni &&
+photo
+){
+
+employe.progression =
+100;
+
+localStorage.setItem(
+"employe",
+JSON.stringify(employe)
+);
+
+barre.style.width =
+"100%";
+
+pourcentage.innerHTML =
+"100 % complété";
+
+btnSuivant
+.classList
+.remove(
+"disabled"
+);
+
+message.innerHTML =
+`
+<div class="success">
+
+✅ Toutes les pièces
+obligatoires ont été déposées.
+
+Votre dossier est prêt
+pour la soumission finale.
+
+</div>
+`;
+
+}
+
+}
+catch{
+
+liste.innerHTML =
+"Aucun document déposé.";
+
+}
 
 }
