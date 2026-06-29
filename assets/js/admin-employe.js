@@ -252,3 +252,13 @@ Correction demandée.
 `;
 
 };
+
+pdf.onclick =
+function(){
+
+window.open(
+"/.netlify/functions/generatePdf?id="
++ id
+);
+
+};
