@@ -21,6 +21,51 @@ const id =
 params.get("id");
 
 charger();
+const response2 =
+await fetch(
+"/.netlify/functions/getHistorique?id="
++ id
+);
+
+const historiqueRH =
+await response2.json();
+
+let historiqueHTML =
+"";
+
+historiqueRH.forEach(
+h=>{
+
+historiqueHTML += `
+<div class="item">
+
+<strong>
+
+${new Date(
+h.created_at
+).toLocaleString(
+'fr-FR'
+)}
+
+</strong>
+
+<br>
+
+${h.action}
+
+<br>
+
+${h.commentaire || ""}
+
+</div>
+`;
+
+});
+
+historique.innerHTML =
+historiqueHTML ||
+"Aucun historique.";
+
 
 async function
 charger(){
