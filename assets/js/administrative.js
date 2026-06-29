@@ -3,55 +3,72 @@ JSON.parse(
 localStorage.getItem("employe")
 );
 
-if(!employe){
-
-window.location.href =
-"login.html";
-
+// Vérification de connexion
+if (!employe) {
+    window.location.href =
+    "login.html";
 }
+
+// Vérification de l'étape précédente
 if (
-  !employe ||
-  employe.progression < 20
+    (employe.progression || 0) < 20
 ) {
-  alert(
-    "Veuillez d'abord compléter vos informations personnelles."
-  );
 
-  window.location.href =
+    alert(
+        "Veuillez d'abord compléter vos informations personnelles."
+    );
+
+    window.location.href =
     "dashboard.html";
+
 }
 
-
-document
-.getElementById("matricule")
-.value =
+// Pré-remplissage
+matricule.value =
 employe.matricule || "";
 
-document
-.getElementById("direction")
-.value =
+direction.value =
 employe.direction || "";
 
-document
-.getElementById("service")
-.value =
+service.value =
 employe.service || "";
 
-document
-.getElementById("poste")
-.value =
+poste.value =
 employe.poste || "";
 
-document
-.getElementById("grade")
-.value =
+grade.value =
 employe.grade || "";
 
+// Affichage progression
+let progression =
+employe.progression || 20;
+
+barre.style.width =
+progression + "%";
+
+pourcentage.innerHTML =
+progression +
+"% complété";
+
+// Déblocage éventuel
+if (progression >= 40) {
+
+    btnSuivant
+    .classList
+    .remove(
+        "disabled"
+    );
+
+}
+
+// Sauvegarde
 document
-.getElementById("adminForm")
+.getElementById(
+"adminForm"
+)
 .addEventListener(
 "submit",
-async(e)=>{
+async (e)=>{
 
 e.preventDefault();
 
@@ -98,6 +115,8 @@ superieur_hierarchique.value
 
 };
 
+try{
+
 const response =
 await fetch(
 "/.netlify/functions/saveAdministrative",
@@ -115,8 +134,16 @@ JSON.stringify(body)
 const result =
 await response.json();
 
-if(response.ok){
+if(!response.ok){
 
+throw new Error(
+result.erreur ||
+"Erreur d'enregistrement."
+);
+
+}
+
+// Mise à jour locale
 employe.matricule =
 body.matricule;
 
@@ -133,26 +160,59 @@ employe.grade =
 body.grade;
 
 employe.progression =
-40;
+Math.max(
+employe.progression || 0,
+40
+);
 
 localStorage.setItem(
 "employe",
 JSON.stringify(employe)
 );
 
-document
-.getElementById(
-"message"
-)
-.innerHTML =
-'<p class="success">Informations enregistrées.</p>';
+// Mise à jour écran
+barre.style.width =
+"40%";
+
+pourcentage.innerHTML =
+"40 % complété";
+
+btnSuivant
+.classList
+.remove(
+"disabled"
+);
+
+message.innerHTML =
+`
+<div class="success">
+
+✅ Informations administratives
+enregistrées avec succès.
+
+Vous pouvez maintenant
+passer à l'étape suivante.
+
+</div>
+`;
 
 }
-else{
+catch(e){
 
-alert(
-result.erreur
-);
+message.innerHTML =
+`
+<div style="
+background:#fef2f2;
+color:#b91c1c;
+padding:20px;
+border-radius:15px;
+margin-top:20px;
+">
+
+${e.message}
+
+</div>
+`;
 
 }
 
