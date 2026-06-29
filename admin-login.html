@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>
+Connexion RH - Port Autonome de Kribi
+</title>
+
+<link rel="stylesheet"
+href="assets/css/style.css">
+
+<style>
+
+body{
+background:#f5f7fa;
+font-family:Arial,sans-serif;
+padding:20px;
+}
+
+.card{
+max-width:500px;
+margin:80px auto;
+background:white;
+padding:40px;
+border-radius:20px;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.logo{
+text-align:center;
+margin-bottom:30px;
+}
+
+.logo img{
+max-width:120px;
+}
+
+h1{
+text-align:center;
+color:#003B7A;
+}
+
+input{
+width:100%;
+padding:15px;
+border:1px solid #ddd;
+border-radius:10px;
+margin-top:15px;
+box-sizing:border-box;
+}
+
+button{
+width:100%;
+padding:15px;
+background:#003B7A;
+color:white;
+border:none;
+border-radius:10px;
+margin-top:25px;
+cursor:pointer;
+}
+
+.message{
+margin-top:20px;
+padding:15px;
+border-radius:10px;
+background:#fef2f2;
+color:#b91c1c;
+display:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="logo">
+
+<h2>
+PORT AUTONOME DE KRIBI
+</h2>
+
+<p>
+Espace RH Administrateur
+</p>
+
+</div>
+
+<h1>
+Connexion
+</h1>
+
+<form id="loginForm">
+
+<input
+type="email"
+id="email"
+placeholder="Adresse email"
+required>
+
+<input
+type="password"
+id="password"
+placeholder="Mot de passe"
+required>
+
+<button type="submit">
+
+Se connecter
+
+</button>
+
+</form>
+
+<div
+id="message"
+class="message">
+</div>
+
+</div>
+
+<script src="assets/js/admin-login.js"></script>
+
+</body>
+</html>
