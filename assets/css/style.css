@@ -207,6 +207,23 @@ h3{
     background:#f3f4f6;
 }
 
+.btn-retour{
+    display:block;
+    text-align:center;
+    margin-top:15px;
+    padding:15px;
+    border:1px solid #003B7A;
+    border-radius:10px;
+    text-decoration:none;
+    color:#003B7A;
+    font-weight:bold;
+}
+
+.btn-retour:hover{
+    background:#003B7A;
+    color:white;
+}
+
 /* ==========================
    PIED DE PAGE
 ========================== */
