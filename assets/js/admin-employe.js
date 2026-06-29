@@ -256,8 +256,9 @@ pdf.onclick =
 function(){
 
 window.open(
-"/.netlify/functions/generatePdf?id="
-+ id
+"fiche-carriere.html?id="
++ id,
+"_blank"
 );
 
 };
