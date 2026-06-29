@@ -8,13 +8,26 @@ background:#003B7A;
 }
 
 .hero{
-    text-align:center;
-    background:white;
-    padding:60px;
+background:
+linear-gradient(
+rgba(0,59,122,0.80),
+rgba(0,59,122,0.80)
+),
+url('assets/images/port-kribi.jpg');
+
+background-size:cover;
+background-position:center;
+color:white;
+padding:100px 20px;
+text-align:center;
 }
 
 .logo{
-    width:220px;
+width:130px;
+margin-bottom:25px;
+background:white;
+padding:10px;
+border-radius:15px;
 }
 
 h1{
