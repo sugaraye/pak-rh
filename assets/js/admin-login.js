@@ -1,68 +1,63 @@
-document
-.getElementById("loginForm")
-.addEventListener(
-"submit",
-async(e)=>{
+const form = document.getElementById("loginForm");
+const message = document.getElementById("message");
 
-e.preventDefault();
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-const body = {
+    message.style.display = "none";
+    message.innerHTML = "";
 
-email:
-email.value
-.trim(),
+    const body = {
+        email: document
+            .getElementById("email")
+            .value
+            .trim()
+            .toLowerCase(),
 
-mot_de_passe:
-password.value
+        mot_de_passe: document
+            .getElementById("password")
+            .value
+    };
 
-};
+    try {
 
-try{
+        const response =
+            await fetch(
+                "/.netlify/functions/adminLogin",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(body)
+                }
+            );
 
-const response =
-await fetch(
-"/.netlify/functions/adminLogin",
-{
-method:"POST",
-headers:{
-"Content-Type":
-"application/json"
-},
-body:
-JSON.stringify(body)
-}
-);
+        const result =
+            await response.json();
 
-const result =
-await response.json();
+        if (!response.ok) {
+            throw new Error(
+                result.erreur ||
+                "Erreur de connexion."
+            );
+        }
 
-if(!response.ok){
+        localStorage.setItem(
+            "admin",
+            JSON.stringify(result.admin)
+        );
 
-throw new Error(
-result.erreur
-);
+        window.location.href =
+            "admin-dashboard.html";
 
-}
+    }
+    catch (e) {
 
-localStorage.setItem(
-"admin",
-JSON.stringify(
-result.admin
-)
-);
+        message.style.display =
+            "block";
 
-window.location.href =
-"admin-dashboard.html";
-
-}
-catch(e){
-
-message.style.display =
-"block";
-
-message.innerHTML =
-e.message;
-
-}
-
+        message.innerHTML =
+            e.message;
+    }
 });
