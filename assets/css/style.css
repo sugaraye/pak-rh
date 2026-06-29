@@ -30,6 +30,44 @@ padding:10px;
 border-radius:15px;
 }
 
+.stats{
+max-width:1200px;
+margin:-40px auto 40px auto;
+display:grid;
+grid-template-columns:
+repeat(
+auto-fit,
+minmax(
+250px,
+1fr
+)
+);
+gap:25px;
+padding:0 20px;
+}
+
+.stat-card{
+background:white;
+padding:30px;
+border-radius:20px;
+text-align:center;
+box-shadow:
+0 5px 20px
+rgba(
+0,
+0,
+0,
+0.08
+);
+}
+
+.nombre{
+font-size:45px;
+font-weight:bold;
+color:#003B7A;
+margin-bottom:10px;
+}
+
 h1{
     color:#003B7A;
     margin-bottom:10px;
