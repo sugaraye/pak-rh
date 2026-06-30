@@ -5,6 +5,25 @@ exports.handler = async (event) => {
 
   try {
 
+    // Vérification des variables d'environnement
+    if (
+      !process.env.SUPABASE_URL ||
+      !process.env.SUPABASE_SERVICE_KEY
+    ) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({
+          erreur:
+            "Variables SUPABASE_URL ou SUPABASE_SERVICE_KEY manquantes."
+        })
+      };
+    }
+
+    console.log(
+      "SUPABASE_URL =",
+      process.env.SUPABASE_URL
+    );
+
     const supabase =
       createClient(
         process.env.SUPABASE_URL,
@@ -12,7 +31,7 @@ exports.handler = async (event) => {
       );
 
     const body =
-      JSON.parse(event.body);
+      JSON.parse(event.body || "{}");
 
     const email =
       (body.email || "")
@@ -25,80 +44,127 @@ exports.handler = async (event) => {
 
     console.log("EMAIL RECU =", email);
 
-    // Test : lire tous les administrateurs
+    // Lecture de tous les administrateurs
     const {
       data: tous,
       error: errTous
     } = await supabase
       .from("administrateurs")
-      .select("email");
+      .select(
+        "id,nom,email,actif"
+      );
 
-    console.log("TOUS LES ADMINS =", tous);
-    console.log("ERREUR TOUS =", errTous);
+    console.log(
+      "NOMBRE ADMINS =",
+      tous?.length || 0
+    );
 
+    console.log(
+      "LISTE ADMINS =",
+      JSON.stringify(tous)
+    );
+
+    console.log(
+      "ERREUR TOUS =",
+      errTous
+    );
+
+    // Recherche de l'email
     const {
       data,
       error
     } = await supabase
       .from("administrateurs")
       .select("*")
-      .eq("email", email)
+      .ilike("email", email)
       .single();
 
-    console.log("ADMIN =", data);
-    console.log("ERREUR =", error);
+    console.log(
+      "ADMIN TROUVE =",
+      JSON.stringify(data)
+    );
 
+    console.log(
+      "ERREUR ADMIN =",
+      error
+    );
+
+    // Email introuvable
     if (error || !data) {
+
       return {
         statusCode: 401,
         body: JSON.stringify({
-          erreur: "Adresse email inconnue."
+          erreur:
+            "Adresse email inconnue."
         })
       };
+
     }
 
+    // Compte désactivé
     if (!data.actif) {
+
       return {
         statusCode: 403,
         body: JSON.stringify({
-          erreur: "Compte désactivé."
+          erreur:
+            "Compte RH désactivé."
         })
       };
+
     }
 
+    // Mot de passe incorrect
     if (
-      (data.mot_de_passe || "").trim() !==
+      (data.mot_de_passe || "")
+        .trim() !==
       mot_de_passe
     ) {
+
       return {
         statusCode: 401,
         body: JSON.stringify({
-          erreur: "Mot de passe incorrect."
+          erreur:
+            "Mot de passe incorrect."
         })
       };
+
     }
+
+    console.log(
+      "CONNEXION RH OK :",
+      data.email
+    );
 
     return {
       statusCode: 200,
       body: JSON.stringify({
+
         admin: {
           id: data.id,
           nom: data.nom,
           email: data.email,
           role: data.role
         }
+
       })
     };
 
   }
   catch (e) {
 
-    console.log("EXCEPTION =", e);
+    console.log(
+      "EXCEPTION =",
+      e
+    );
 
     return {
       statusCode: 500,
       body: JSON.stringify({
-        erreur: e.message
+        erreur:
+          "Erreur serveur : " +
+          e.message
       })
     };
 
